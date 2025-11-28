@@ -16,6 +16,7 @@ import AvatarCanvas from '@/components/AvatarCanvas';
 import CustomizationPanel from '@/components/CustomizationPanel';
 import ExportButton from '@/components/ExportButton';
 import RandomButton from '@/components/controls/RandomButton';
+import ErrorBoundary from '@/components/ErrorBoundary';
 
 export default function Home() {
   const canvasRef = useRef<SVGSVGElement>(null!);
@@ -77,10 +78,12 @@ export default function Home() {
           {/* Avatar Preview */}
           <section id="avatar-preview" className="card-halloween w-full max-w-2xl hover-lift" aria-label="Avatar preview">
             <div className="bg-gradient-to-br from-halloween-orange-50 to-halloween-purple-50 rounded-xl p-8">
-              <AvatarCanvas
-                ref={canvasRef}
-                className="w-full h-auto drop-shadow-2xl"
-              />
+              <ErrorBoundary>
+                <AvatarCanvas
+                  ref={canvasRef}
+                  className="w-full h-auto drop-shadow-2xl"
+                />
+              </ErrorBoundary>
             </div>
           </section>
 
@@ -102,10 +105,12 @@ export default function Home() {
         <div className="flex-1 flex flex-col items-center justify-center p-4 overflow-auto">
           <section id="avatar-preview" className="card-halloween w-full max-w-md" aria-label="Avatar preview">
             <div className="bg-gradient-to-br from-halloween-orange-50 to-halloween-purple-50 rounded-xl p-4">
-              <AvatarCanvas
-                ref={canvasRef}
-                className="w-full h-auto drop-shadow-xl"
-              />
+              <ErrorBoundary>
+                <AvatarCanvas
+                  ref={canvasRef}
+                  className="w-full h-auto drop-shadow-xl"
+                />
+              </ErrorBoundary>
             </div>
           </section>
 

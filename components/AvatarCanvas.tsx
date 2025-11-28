@@ -20,6 +20,7 @@
 import React, { forwardRef } from 'react';
 import { useAvatarStore } from '@/lib/avatarStore';
 import { getComponent } from '@/lib/componentRegistry';
+import { SVGComponentErrorBoundary } from './SVGComponentErrorBoundary';
 
 /**
  * AvatarCanvas component props
@@ -80,19 +81,39 @@ export const AvatarCanvas = forwardRef<SVGSVGElement, AvatarCanvasProps>(
         aria-label={buildAriaLabel()}
       >
         {/* Layer 1: Background */}
-        {BackgroundComponent && <BackgroundComponent />}
+        {BackgroundComponent && (
+          <SVGComponentErrorBoundary componentName={`background-${config.background}`}>
+            <BackgroundComponent />
+          </SVGComponentErrorBoundary>
+        )}
 
         {/* Layer 2: Cape */}
-        {CapeComponent && <CapeComponent />}
+        {CapeComponent && (
+          <SVGComponentErrorBoundary componentName={`cape-${config.cape}`}>
+            <CapeComponent />
+          </SVGComponentErrorBoundary>
+        )}
 
         {/* Layer 3: Eyes */}
-        {EyesComponent && <EyesComponent />}
+        {EyesComponent && (
+          <SVGComponentErrorBoundary componentName={`eyes-${config.eyes}`}>
+            <EyesComponent />
+          </SVGComponentErrorBoundary>
+        )}
 
         {/* Layer 4: Hat */}
-        {HatComponent && <HatComponent />}
+        {HatComponent && (
+          <SVGComponentErrorBoundary componentName={`hat-${config.hat}`}>
+            <HatComponent />
+          </SVGComponentErrorBoundary>
+        )}
 
         {/* Layer 5: Accessory */}
-        {AccessoryComponent && <AccessoryComponent />}
+        {AccessoryComponent && (
+          <SVGComponentErrorBoundary componentName={`accessory-${config.accessory}`}>
+            <AccessoryComponent />
+          </SVGComponentErrorBoundary>
+        )}
       </svg>
     );
   }

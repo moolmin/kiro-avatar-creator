@@ -200,7 +200,7 @@
   - Ensure minimum touch target sizes (44x44px)
   - _Requirements: 9.1, 9.2, 9.4, 12.4_
 
-- [x] 19. Add accessibility features
+- [ ] 19. Add accessibility features
   - Add ARIA labels to all controls
   - Implement keyboard navigation
   - Add focus indicators
@@ -208,7 +208,7 @@
   - Add descriptive labels for avatar preview
   - _Requirements: 12.4_
 
-- [ ] 20. Implement error boundaries
+- [x] 20. Implement error boundaries
   - Create error boundary component for SVG rendering
   - Add fallback UI for missing components
   - Log errors to console
