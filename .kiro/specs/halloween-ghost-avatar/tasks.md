@@ -93,7 +93,7 @@
   - **Property 6: Background selection renders correct component**
   - **Validates: Requirements 5.1**
 
-- [ ] 9. Implement Zustand state management
+- [x] 9. Implement Zustand state management
   - Create avatarStore.ts with AvatarConfiguration state (eyes, hat, cape, accessory, background)
   - Implement updateConfig() action for partial updates
   - Set default configuration values
@@ -109,7 +109,7 @@
   - Create AvatarCanvas.tsx component
   - Implement SVG viewBox with 1024x1024 dimensions
   - Use getComponent() to retrieve components from registry
-  - Implement layering system: background → cape → eyes → hat → accessory
+  - Implement layering system: background → eyes → hat → accessory → cape 
   - Add ref for export functionality
   - _Requirements: 1.1, 2.1, 3.1, 4.1, 5.1, 11.2_
 
