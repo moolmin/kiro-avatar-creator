@@ -25,65 +25,88 @@ export default function CustomizationPanel() {
   const backgroundsOptions = getCategoryOptions('backgrounds');
 
   return (
-    <div className="w-full h-full bg-gradient-to-br from-orange-50 to-purple-50 p-6 overflow-y-auto">
+    <div className="w-full h-full panel-halloween p-6 overflow-y-auto">
       <div className="max-w-md mx-auto lg:max-w-none">
-        <h2 className="text-2xl font-bold text-gray-800 mb-6">
-          Customize Your Ghost
-        </h2>
+        <div className="mb-8">
+          <h2 className="text-2xl md:text-3xl font-bold text-halloween-gradient mb-2">
+            Customize Your Ghost
+          </h2>
+          <p className="text-sm text-gray-600">
+            Mix and match to create your perfect spooky avatar
+          </p>
+        </div>
 
-        <div className="space-y-6">
+        <div className="space-y-5">
           {/* Eyes Selection */}
-          <SelectControl
-            label="Eyes"
-            value={config.eyes}
-            options={eyesOptions}
-            onChange={(value) => updateConfig({ eyes: value as string })}
-            nullable={false}
-          />
+          <div className="transition-smooth hover:scale-[1.02]">
+            <SelectControl
+              label="👁️ Eyes"
+              value={config.eyes}
+              options={eyesOptions}
+              onChange={(value) => updateConfig({ eyes: value as string })}
+              nullable={false}
+            />
+          </div>
 
           {/* Hat Selection */}
-          <SelectControl
-            label="Hat"
-            value={config.hat}
-            options={hatsOptions}
-            onChange={(value) => updateConfig({ hat: value })}
-            nullable={true}
-          />
+          <div className="transition-smooth hover:scale-[1.02]">
+            <SelectControl
+              label="🎩 Hat"
+              value={config.hat}
+              options={hatsOptions}
+              onChange={(value) => updateConfig({ hat: value })}
+              nullable={true}
+            />
+          </div>
 
           {/* Cape Selection */}
-          <SelectControl
-            label="Cape"
-            value={config.cape}
-            options={capesOptions}
-            onChange={(value) => updateConfig({ cape: value as string })}
-            nullable={false}
-          />
+          <div className="transition-smooth hover:scale-[1.02]">
+            <SelectControl
+              label="🦇 Cape"
+              value={config.cape}
+              options={capesOptions}
+              onChange={(value) => updateConfig({ cape: value as string })}
+              nullable={false}
+            />
+          </div>
 
           {/* Accessory Selection */}
-          <SelectControl
-            label="Accessory"
-            value={config.accessory}
-            options={accessoriesOptions}
-            onChange={(value) => updateConfig({ accessory: value })}
-            nullable={true}
-          />
+          <div className="transition-smooth hover:scale-[1.02]">
+            <SelectControl
+              label="✨ Accessory"
+              value={config.accessory}
+              options={accessoriesOptions}
+              onChange={(value) => updateConfig({ accessory: value })}
+              nullable={true}
+            />
+          </div>
 
           {/* Background Selection */}
-          <SelectControl
-            label="Background"
-            value={config.background}
-            options={backgroundsOptions}
-            onChange={(value) => updateConfig({ background: value as string })}
-            nullable={false}
-          />
+          <div className="transition-smooth hover:scale-[1.02]">
+            <SelectControl
+              label="🌙 Background"
+              value={config.background}
+              options={backgroundsOptions}
+              onChange={(value) => updateConfig({ background: value as string })}
+              nullable={false}
+            />
+          </div>
         </div>
 
         {/* Helper text */}
-        <div className="mt-8 p-4 bg-white rounded-lg shadow-sm">
-          <p className="text-sm text-gray-600">
-            💡 Tip: Select different options to customize your ghost avatar.
-            Hat and accessory can be removed by selecting "None".
-          </p>
+        <div className="mt-8 p-5 bg-white rounded-xl shadow-md border-2 border-halloween-orange-200 transition-smooth hover:shadow-lg">
+          <div className="flex items-start gap-3">
+            <span className="text-2xl flex-shrink-0">💡</span>
+            <div>
+              <p className="text-sm font-medium text-gray-800 mb-1">
+                Quick Tips
+              </p>
+              <p className="text-xs text-gray-600 leading-relaxed">
+                Select different options to customize your ghost avatar.
+                Hat and accessory can be removed by selecting "None".
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

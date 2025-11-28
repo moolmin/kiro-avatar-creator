@@ -28,12 +28,12 @@ describe('CustomizationPanel', () => {
   it('renders all customization controls', () => {
     render(<CustomizationPanel />);
 
-    // Check that all control labels are present
-    expect(screen.getByText('Eyes')).toBeTruthy();
-    expect(screen.getByText('Hat')).toBeTruthy();
-    expect(screen.getByText('Cape')).toBeTruthy();
-    expect(screen.getByText('Accessory')).toBeTruthy();
-    expect(screen.getByText('Background')).toBeTruthy();
+    // Check that all control labels are present (with emojis)
+    expect(screen.getByText('👁️ Eyes')).toBeTruthy();
+    expect(screen.getByText('🎩 Hat')).toBeTruthy();
+    expect(screen.getByText('🦇 Cape')).toBeTruthy();
+    expect(screen.getByText('✨ Accessory')).toBeTruthy();
+    expect(screen.getByText('🌙 Background')).toBeTruthy();
   });
 
   it('renders the title', () => {
@@ -45,7 +45,7 @@ describe('CustomizationPanel', () => {
   it('renders helper text', () => {
     render(<CustomizationPanel />);
     
-    expect(screen.getByText(/Tip:/)).toBeTruthy();
+    expect(screen.getByText(/Quick Tips/)).toBeTruthy();
   });
 
   it('displays current configuration values from store', () => {
@@ -63,6 +63,6 @@ describe('CustomizationPanel', () => {
 
     // The SelectControl components should display the selected values
     // We can verify the component rendered without errors
-    expect(screen.getByText('Eyes')).toBeTruthy();
+    expect(screen.getByText('👁️ Eyes')).toBeTruthy();
   });
 });

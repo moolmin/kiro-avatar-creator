@@ -56,13 +56,13 @@ export default function ExportButton({ svgRef, className = '' }: ExportButtonPro
       <button
         onClick={handleExport}
         disabled={isExporting}
-        className="w-full flex items-center justify-center gap-2 rounded-lg bg-purple-600 px-4 py-2 text-white font-medium shadow-md hover:bg-purple-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-purple-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        className="btn-halloween-secondary w-full flex items-center justify-center gap-3"
         aria-label={isExporting ? 'Exporting avatar...' : 'Export avatar as PNG'}
       >
         {isExporting ? (
           <>
             <svg
-              className="h-5 w-5 animate-spin"
+              className="h-6 w-6 animate-spin"
               viewBox="0 0 24 24"
               fill="none"
               aria-hidden="true"
@@ -81,12 +81,12 @@ export default function ExportButton({ svgRef, className = '' }: ExportButtonPro
                 d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
               />
             </svg>
-            <span>Exporting...</span>
+            <span className="text-base font-semibold">Exporting...</span>
           </>
         ) : (
           <>
             <svg
-              className="h-5 w-5"
+              className="h-6 w-6"
               viewBox="0 0 20 20"
               fill="currentColor"
               aria-hidden="true"
@@ -94,7 +94,7 @@ export default function ExportButton({ svgRef, className = '' }: ExportButtonPro
               <path d="M10.75 2.75a.75.75 0 00-1.5 0v8.614L6.295 8.235a.75.75 0 10-1.09 1.03l4.25 4.5a.75.75 0 001.09 0l4.25-4.5a.75.75 0 00-1.09-1.03l-2.955 3.129V2.75z" />
               <path d="M3.5 12.75a.75.75 0 00-1.5 0v2.5A2.75 2.75 0 004.75 18h10.5A2.75 2.75 0 0018 15.25v-2.5a.75.75 0 00-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5z" />
             </svg>
-            <span>Export PNG</span>
+            <span className="text-base font-semibold">Export PNG</span>
           </>
         )}
       </button>
@@ -102,13 +102,13 @@ export default function ExportButton({ svgRef, className = '' }: ExportButtonPro
       {/* Error toast notification */}
       {error && (
         <div
-          className="mt-2 rounded-lg bg-red-100 border border-red-400 px-4 py-3 text-red-700 text-sm"
+          className="mt-3 rounded-xl bg-red-50 border-2 border-red-300 px-4 py-3 text-red-800 text-sm shadow-lg animate-pulse"
           role="alert"
           aria-live="assertive"
         >
-          <div className="flex items-start gap-2">
+          <div className="flex items-start gap-3">
             <svg
-              className="h-5 w-5 flex-shrink-0"
+              className="h-6 w-6 flex-shrink-0 text-red-500"
               viewBox="0 0 20 20"
               fill="currentColor"
               aria-hidden="true"
@@ -119,7 +119,7 @@ export default function ExportButton({ svgRef, className = '' }: ExportButtonPro
                 clipRule="evenodd"
               />
             </svg>
-            <span>{error}</span>
+            <span className="font-medium">{error}</span>
           </div>
         </div>
       )}

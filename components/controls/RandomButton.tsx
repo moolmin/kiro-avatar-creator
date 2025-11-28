@@ -17,11 +17,11 @@ export default function RandomButton() {
   return (
     <button
       onClick={randomize}
-      className="w-full flex items-center justify-center gap-2 rounded-lg bg-orange-500 px-4 py-2 text-white font-medium shadow-md hover:bg-orange-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 transition-colors"
+      className="btn-halloween-primary w-full flex items-center justify-center gap-3"
       aria-label="Generate random avatar"
     >
       <svg
-        className="h-5 w-5"
+        className="h-6 w-6 transition-transform duration-250 group-hover:rotate-180"
         viewBox="0 0 20 20"
         fill="currentColor"
         aria-hidden="true"
@@ -32,7 +32,7 @@ export default function RandomButton() {
           clipRule="evenodd"
         />
       </svg>
-      <span>Randomize</span>
+      <span className="text-base font-semibold">Randomize</span>
     </button>
   );
 }
