@@ -61,6 +61,9 @@ const config: Config = {
         '112': '28rem',
         '128': '32rem',
       },
+      borderWidth: {
+        '3': '3px',
+      },
       minHeight: {
         'touch': '44px',
       },

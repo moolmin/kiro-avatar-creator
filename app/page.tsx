@@ -13,9 +13,8 @@
 
 import { useRef, useState, useEffect } from 'react';
 import AvatarCanvas from '@/components/AvatarCanvas';
-import CustomizationPanel from '@/components/CustomizationPanel';
+import TabbedCustomizationPanel from '@/components/TabbedCustomizationPanel';
 import ExportButton from '@/components/ExportButton';
-import RandomButton from '@/components/controls/RandomButton';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import CompatibilityWarning from '@/components/CompatibilityWarning';
 import { preloadCategorySvgs } from '@/lib/svgLoader';
@@ -31,10 +30,10 @@ export default function Home() {
         // Preload all SVG files for better performance
         await Promise.all([
           preloadCategorySvgs('eyes', ['round-eyes.svg', 'happy-eyes.svg']),
-          preloadCategorySvgs('hats', ['witch-hat.svg', 'pumpkin-hat.svg']),
-          preloadCategorySvgs('capes', ['basic-cape.svg', 'torn-cape.svg']),
-          preloadCategorySvgs('accessories', ['candy-bag.svg', 'magic-wand.svg']),
-          preloadCategorySvgs('backgrounds', ['moon-bg.svg', 'graveyard-bg.svg']),
+          preloadCategorySvgs('hats', ['witch-hat.svg', 'pumpkin-hat.svg', 'none.svg']),
+          preloadCategorySvgs('capes', ['white-cape.svg', 'purple-cape.svg', 'black-cape.svg']),
+          preloadCategorySvgs('accessories', ['none.svg', 'wand.svg', 'pumpkin-basket.svg', 'candy.svg']),
+          preloadCategorySvgs('backgrounds', ['sparkles.svg', 'moon.svg', 'none.svg']),
         ]);
       } catch (error) {
         console.warn('Some assets failed to preload:', error);
@@ -83,14 +82,9 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Desktop Layout (≥768px): Sidebar */}
-      <div className="hidden md:grid md:grid-cols-[420px_1fr] h-[calc(100vh-120px)]">
-        {/* Left Sidebar - Customization Panel */}
-        <aside className="bg-white shadow-2xl overflow-hidden border-r-4 border-halloween-purple-500" aria-label="Customization sidebar">
-          <CustomizationPanel />
-        </aside>
-
-        {/* Right Content - Avatar Preview and Actions */}
+      {/* Desktop Layout (≥768px): Canvas Left, Customization Right */}
+      <div className="hidden md:grid md:grid-cols-[1fr_480px] h-[calc(100vh-120px)]">
+        {/* Left Content - Avatar Preview and Actions */}
         <div className="flex flex-col items-center justify-center p-8 gap-8">
           {/* Avatar Preview */}
           <section id="avatar-preview" className="card-halloween w-full max-w-2xl hover-lift" aria-label="Avatar preview">
@@ -104,16 +98,16 @@ export default function Home() {
             </div>
           </section>
 
-          {/* Action Buttons */}
-          <nav className="flex gap-4 w-full max-w-2xl" aria-label="Avatar actions">
-            <div className="flex-1">
-              <RandomButton />
-            </div>
-            <div className="flex-1">
-              <ExportButton svgRef={canvasRef} />
-            </div>
+          {/* Action Button - Export only */}
+          <nav className="flex gap-4 w-full max-w-2xl justify-center" aria-label="Avatar actions">
+            <ExportButton svgRef={canvasRef} className="px-8" />
           </nav>
         </div>
+
+        {/* Right Sidebar - Tabbed Customization Panel */}
+        <aside className="bg-white shadow-2xl overflow-hidden border-l-4 border-halloween-purple-500" aria-label="Customization sidebar">
+          <TabbedCustomizationPanel className="h-full" />
+        </aside>
       </div>
 
       {/* Mobile Layout (<768px): Bottom Sheet */}
@@ -131,20 +125,15 @@ export default function Home() {
             </div>
           </section>
 
-          {/* Action Buttons */}
-          <nav className="flex gap-3 w-full max-w-md mt-6" aria-label="Avatar actions">
-            <div className="flex-1">
-              <RandomButton />
-            </div>
-            <div className="flex-1">
-              <ExportButton svgRef={canvasRef} />
-            </div>
+          {/* Export Button */}
+          <nav className="flex gap-3 w-full max-w-md mt-6 justify-center" aria-label="Avatar actions">
+            <ExportButton svgRef={canvasRef} className="px-8" />
           </nav>
         </div>
 
-        {/* Bottom - Customization Panel */}
-        <aside className="bg-white shadow-2xl rounded-t-3xl max-h-[50vh] overflow-hidden border-t-4 border-halloween-orange-500" aria-label="Customization panel">
-          <CustomizationPanel />
+        {/* Bottom - Tabbed Customization Panel */}
+        <aside className="bg-white shadow-2xl rounded-t-3xl max-h-[60vh] overflow-hidden border-t-4 border-halloween-orange-500" aria-label="Customization panel">
+          <TabbedCustomizationPanel />
         </aside>
       </div>
     </main>
