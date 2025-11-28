@@ -11,10 +11,16 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import ExportButton from './ExportButton';
 import * as exportUtils from '@/lib/exportUtils';
+import * as browserCompatibility from '@/lib/browserCompatibility';
 
 // Mock the export utilities
 vi.mock('@/lib/exportUtils', () => ({
   exportAvatarAsPNG: vi.fn(),
+}));
+
+// Mock browser compatibility
+vi.mock('@/lib/browserCompatibility', () => ({
+  checkBrowserCompatibility: vi.fn(),
 }));
 
 describe('ExportButton', () => {
@@ -24,6 +30,13 @@ describe('ExportButton', () => {
     // Create a mock SVG element
     const mockSvgElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     mockSvgRef = { current: mockSvgElement };
+    
+    // Mock browser compatibility to return supported by default
+    vi.mocked(browserCompatibility.checkBrowserCompatibility).mockReturnValue({
+      svg: true,
+      canvas: true,
+      isCompatible: true,
+    });
     
     // Reset mocks
     vi.clearAllMocks();

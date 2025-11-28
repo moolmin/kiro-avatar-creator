@@ -8,7 +8,7 @@
  * Requirements: 12.4
  */
 
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import CustomizationPanel from './CustomizationPanel';
 import AvatarCanvas from './AvatarCanvas';
@@ -16,6 +16,16 @@ import ExportButton from './ExportButton';
 import RandomButton from './controls/RandomButton';
 import { useAvatarStore } from '@/lib/avatarStore';
 import { createRef } from 'react';
+import * as browserCompatibility from '@/lib/browserCompatibility';
+
+// Mock browser compatibility
+vi.mock('@/lib/browserCompatibility', () => ({
+  checkBrowserCompatibility: vi.fn(() => ({
+    svg: true,
+    canvas: true,
+    isCompatible: true,
+  })),
+}));
 
 describe('Accessibility Features', () => {
   beforeEach(() => {

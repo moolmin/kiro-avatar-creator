@@ -17,6 +17,7 @@ import CustomizationPanel from '@/components/CustomizationPanel';
 import ExportButton from '@/components/ExportButton';
 import RandomButton from '@/components/controls/RandomButton';
 import ErrorBoundary from '@/components/ErrorBoundary';
+import CompatibilityWarning from '@/components/CompatibilityWarning';
 
 export default function Home() {
   const canvasRef = useRef<SVGSVGElement>(null!);
@@ -46,6 +47,9 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-halloween-gradient">
+      {/* Browser Compatibility Warning */}
+      <CompatibilityWarning />
+      
       {/* Skip to main content link for keyboard users */}
       <a 
         href="#avatar-preview" 

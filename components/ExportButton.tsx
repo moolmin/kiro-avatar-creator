@@ -10,8 +10,9 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { exportAvatarAsPNG } from '@/lib/exportUtils';
+import { checkBrowserCompatibility } from '@/lib/browserCompatibility';
 
 export interface ExportButtonProps {
   svgRef: React.RefObject<SVGSVGElement>;
@@ -21,10 +22,23 @@ export interface ExportButtonProps {
 export default function ExportButton({ svgRef, className = '' }: ExportButtonProps) {
   const [isExporting, setIsExporting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [canvasSupported, setCanvasSupported] = useState(true);
+
+  useEffect(() => {
+    // Check Canvas API support on mount
+    const compatibility = checkBrowserCompatibility();
+    setCanvasSupported(compatibility.canvas);
+  }, []);
 
   const handleExport = async () => {
     // Clear any previous errors
     setError(null);
+
+    // Check Canvas API support
+    if (!canvasSupported) {
+      setError('Your browser does not support Canvas API, which is required for PNG export. Please use a modern browser.');
+      return;
+    }
 
     // Validate SVG ref
     if (!svgRef.current) {
@@ -55,11 +69,21 @@ export default function ExportButton({ svgRef, className = '' }: ExportButtonPro
     <div className={className}>
       <button
         onClick={handleExport}
-        disabled={isExporting}
-        className="btn-halloween-secondary w-full flex items-center justify-center gap-3"
-        aria-label={isExporting ? 'Exporting avatar, please wait' : 'Export avatar as PNG image'}
+        disabled={isExporting || !canvasSupported}
+        className="btn-halloween-secondary w-full flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
+        aria-label={
+          !canvasSupported 
+            ? 'Export not available - Canvas API not supported' 
+            : isExporting 
+            ? 'Exporting avatar, please wait' 
+            : 'Export avatar as PNG image'
+        }
         aria-busy={isExporting}
-        title="Download your customized avatar as a PNG image (1024x1024 pixels)"
+        title={
+          !canvasSupported
+            ? 'Canvas API not supported in your browser'
+            : 'Download your customized avatar as a PNG image (1024x1024 pixels)'
+        }
       >
         {isExporting ? (
           <>
