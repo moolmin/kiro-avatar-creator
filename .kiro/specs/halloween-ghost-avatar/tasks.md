@@ -153,7 +153,7 @@
   - Add icon and styling
   - _Requirements: 8.1, 8.2, 8.3_
 
-- [ ] 15. Implement PNG export functionality
+- [x] 15. Implement PNG export functionality
   - Create lib/exportUtils.ts
   - Implement exportAvatarAsPNG() function using html2canvas
   - Set canvas dimensions to 1024x1024
