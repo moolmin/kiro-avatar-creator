@@ -175,7 +175,7 @@
   - **Property 9: Export filename follows pattern**
   - **Validates: Requirements 7.3**
 
-- [ ] 16. Create ExportButton component
+- [x] 16. Create ExportButton component
   - Create ExportButton.tsx component
   - Connect to exportAvatarAsPNG() function
   - Pass SVG ref from AvatarCanvas
