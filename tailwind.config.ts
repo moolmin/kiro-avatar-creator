@@ -12,9 +12,9 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
         // Primary purple
-        'primary-purple': '#8E48FF',
+        'primary-purple': '#9046FF',
         primary: {
-          DEFAULT: '#8E48FF',
+          DEFAULT: '#9046FF',
           50: '#F3ECFF',
           100: '#E6D9FF',
           200: '#CCB3FF',

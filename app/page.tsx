@@ -71,20 +71,8 @@ export default function Home() {
         Skip to avatar preview
       </a>
 
-      {/* Header */}
-      <header className="bg-white shadow-md border-b-4 border-halloween-orange-500">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <h1 className="text-3xl md:text-5xl font-bold text-center text-halloween-gradient animate-pulse-slow">
-            <span aria-hidden="true">🎃</span> Halloween Ghost Avatar Maker <span aria-hidden="true">👻</span>
-          </h1>
-          <p className="text-center text-gray-600 mt-2 text-sm md:text-base">
-            Create your spooky ghost avatar and share it with the world!
-          </p>
-        </div>
-      </header>
-
       {/* Desktop Layout (≥768px): Canvas Left, Customization Right */}
-      <div className="hidden md:grid md:grid-cols-2 h-[calc(100vh-120px)]">
+      <div className="hidden md:grid md:grid-cols-2 h-screen">
         {/* Left Content - Avatar Preview and Actions */}
         <div className="flex flex-col items-center justify-center p-8 gap-8">
           {/* Avatar Preview */}
@@ -100,20 +88,20 @@ export default function Home() {
           </section>
 
           {/* Action Buttons */}
-          <nav className="flex gap-4 w-full max-w-2xl justify-center" aria-label="Avatar actions">
+          <nav className="flex gap-4 w-full max-w-2xl justify-left" aria-label="Avatar actions">
             <RandomButton />
             <ExportButton svgRef={canvasRef} />
           </nav>
         </div>
 
         {/* Right Sidebar - Tabbed Customization Panel */}
-        <aside className="bg-white shadow-2xl overflow-hidden" aria-label="Customization sidebar">
+        <aside className="bg-white border-l border-gray-200 overflow-hidden" aria-label="Customization sidebar">
           <TabbedCustomizationPanel className="h-full" />
         </aside>
       </div>
 
       {/* Mobile Layout (<768px): Bottom Sheet */}
-      <div className="md:hidden flex flex-col h-[calc(100vh-140px)]">
+      <div className="md:hidden flex flex-col h-screen">
         {/* Top - Avatar Preview */}
         <div className="flex-1 flex flex-col items-center justify-center p-4 overflow-auto">
           <section id="avatar-preview" className="w-full max-w-md" aria-label="Avatar preview">

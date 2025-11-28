@@ -168,7 +168,7 @@ body {
 
   /* Halloween gradient backgrounds */
   .bg-halloween-gradient {
-    background: linear-gradient(135deg, #fff7ed 0%, #faf5ff 100%);
+    background: #000000;
   }
 
   .bg-halloween-gradient-dark {

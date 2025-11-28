@@ -61,7 +61,7 @@ export default function TabbedCustomizationPanel({ className = '' }: Customizati
         className={`
           relative group rounded-xl p-3 transition-all duration-200 flex flex-col items-center justify-center
           ${isSelected 
-            ? 'ring-4 ring-purple-500 bg-purple-50 shadow-lg' 
+            ? 'ring-2 ring-purple-500 bg-purple-50' 
             : 'ring-2 ring-gray-200 hover:ring-purple-300 bg-white hover:bg-purple-50'
           }
         `}
@@ -108,6 +108,11 @@ export default function TabbedCustomizationPanel({ className = '' }: Customizati
 
   return (
     <div className={`bg-white overflow-hidden ${className}`}>
+      {/* Header */}
+      <div className="px-6 py-4 bg-white border-b border-gray-200">
+        <h1 className="text-2xl font-bold text-gray-800">kiro</h1>
+      </div>
+
       {/* Tab Navigation */}
       <div className="flex bg-gray-50">
         {tabs.map((tab) => (
