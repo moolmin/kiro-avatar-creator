@@ -1,7 +1,0 @@
-<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
-  <!-- Left eye -->
-  <circle cx="380" cy="420" r="35" fill="#000000" />
-  
-  <!-- Right eye -->
-  <circle cx="644" cy="420" r="35" fill="#000000" />
-</svg>

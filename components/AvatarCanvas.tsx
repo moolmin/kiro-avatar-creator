@@ -100,6 +100,7 @@ export const AvatarCanvas = forwardRef<SVGSVGElement, AvatarCanvasProps>(
       <svg
         ref={ref}
         viewBox="0 0 1024 1024"
+        preserveAspectRatio="xMidYMid meet"
         className={className}
         xmlns="http://www.w3.org/2000/svg"
         role="img"
@@ -130,11 +131,17 @@ export const AvatarCanvas = forwardRef<SVGSVGElement, AvatarCanvasProps>(
         )}
 
         {/* Layer 4: Eyes */}
-        {EyesComponent && (
+        {config.eyes && (
           <SVGComponentErrorBoundary componentName={`eyes-${config.eyes}`}>
-            <g transform={transformToString(getSVGTransform('eyes', config.eyes))}>
-              <EyesComponent />
-            </g>
+            <image
+              href={`/ghost-parts/eyes/${config.eyes}.png`}
+              x="0"
+              y="0"
+              width="1024"
+              height="1024"
+              preserveAspectRatio="xMidYMid meet"
+              transform={transformToString(getSVGTransform('eyes', config.eyes))}
+            />
           </SVGComponentErrorBoundary>
         )}
 

@@ -33,7 +33,7 @@ export const svgTransforms: SVGTransformConfig = {
   // Eyes 카테고리
   eyes: {
     'eyes-01': {
-      scale: 0.3,
+     scale: 0.3,
       translateX: 1600,
       translateY: 1000,
     },
@@ -43,14 +43,14 @@ export const svgTransforms: SVGTransformConfig = {
       translateY: 1000,
     },
     'eyes-03': {
-      scale: 0.45,
-      translateX: 1020,
-      translateY: 650,
+      scale: 1.0,
+      translateX: 0,
+      translateY: 0,
     },
     'eyes-04': {
-      scale: 0.32,
-      translateX: 1380,
-      translateY: 800,
+      scale: 1.0,
+      translateX: 0,
+      translateY: 0,
     },
     'eyes-05': {
       scale: 1.0,
@@ -58,19 +58,14 @@ export const svgTransforms: SVGTransformConfig = {
       translateY: 0,
     },
     'eyes-06': {
-       scale: 0.24,
+      scale: 0.24,
       translateX: 1940,
       translateY: 1200,
     },
     'eyes-07': {
-      scale: 0.22,
-      translateX: 1940,
-      translateY: 1260,
-    },
-    'eyes-08': {
-     scale: 0.23,
-      translateX: 1900,
-      translateY: 1280,
+      scale: 1.0,
+      translateX: 0,
+      translateY: 0,
     },
   },
 

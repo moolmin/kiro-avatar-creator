@@ -45,24 +45,34 @@ export function filenameToId(filename: string): string {
   return filename.replace(/\.svg$/, '');
 }
 
-/**
- * Cache for loaded SVG content
- */
-const svgContentCache: Record<string, string> = {};
+
 
 /**
- * Load SVG content and cache it
+ * SVG content with viewBox metadata
  */
-async function loadSvgContent(svgPath: string): Promise<string> {
-  if (svgContentCache[svgPath]) {
-    return svgContentCache[svgPath];
+interface SvgContentData {
+  content: string;
+  viewBox: string | null;
+}
+
+/**
+ * Cache for loaded SVG content with viewBox info
+ */
+const svgDataCache: Record<string, SvgContentData> = {};
+
+/**
+ * Load SVG content and cache it with viewBox information
+ */
+async function loadSvgContent(svgPath: string): Promise<SvgContentData> {
+  if (svgDataCache[svgPath]) {
+    return svgDataCache[svgPath];
   }
 
   try {
     const response = await fetch(svgPath);
     const text = await response.text();
     
-    // Parse the SVG to extract only the inner content
+    // Parse the SVG to extract content and viewBox
     const parser = new DOMParser();
     const doc = parser.parseFromString(text, 'image/svg+xml');
     const svgElement = doc.querySelector('svg');
@@ -71,15 +81,62 @@ async function loadSvgContent(svgPath: string): Promise<string> {
       throw new Error('Invalid SVG file');
     }
     
-    // Get the inner HTML (everything inside the <svg> tag)
+    // Get the inner HTML and viewBox attribute
     const innerContent = svgElement.innerHTML;
-    svgContentCache[svgPath] = innerContent;
+    const viewBox = svgElement.getAttribute('viewBox');
     
-    return innerContent;
+    const data = { content: innerContent, viewBox };
+    svgDataCache[svgPath] = data;
+    
+    return data;
   } catch (error) {
     console.error(`Failed to load SVG: ${svgPath}`, error);
+    return { content: '', viewBox: null };
+  }
+}
+
+/**
+ * Calculate transform to normalize SVG to 1024x1024 coordinate system
+ * 
+ * @param viewBox - ViewBox string (e.g., "0 0 852 570")
+ * @returns Transform string to normalize the SVG
+ */
+function calculateNormalizationTransform(viewBox: string | null, svgPath?: string): string {
+  if (!viewBox) return '';
+  
+  const parts = viewBox.trim().split(/\s+/);
+  if (parts.length !== 4) return '';
+  
+  const [minX, minY, width, height] = parts.map(Number);
+  
+  // If already 1024x1024, no transform needed
+  if (width === 1024 && height === 1024 && minX === 0 && minY === 0) {
     return '';
   }
+  
+  // Calculate scale to fit into 1024x1024 while maintaining aspect ratio
+  const scale = Math.min(1024 / width, 1024 / height);
+  
+  // Calculate translation to center the content
+  const scaledWidth = width * scale;
+  const scaledHeight = height * scale;
+  const translateX = (1024 - scaledWidth) / 2 - minX * scale;
+  const translateY = (1024 - scaledHeight) / 2 - minY * scale;
+  
+  const transform = `translate(${translateX}, ${translateY}) scale(${scale})`;
+  
+  // Debug logging
+  if (process.env.NODE_ENV === 'development') {
+    console.log(`[SVG Transform] ${svgPath}`, {
+      viewBox,
+      originalSize: { width, height },
+      scale,
+      translate: { x: translateX, y: translateY },
+      transform
+    });
+  }
+  
+  return transform;
 }
 
 /**
@@ -96,13 +153,13 @@ export function createSvgComponent(
   const svgPath = `/ghost-parts/${category}/${filename}`;
   
   const SvgComponent = ({ className, style }: GhostPartProps) => {
-    const [svgContent, setSvgContent] = useState<string>('');
+    const [svgData, setSvgData] = useState<SvgContentData>({ content: '', viewBox: null });
     const [isLoading, setIsLoading] = useState(true);
     
     useEffect(() => {
       loadSvgContent(svgPath)
-        .then(content => {
-          setSvgContent(content);
+        .then(data => {
+          setSvgData(data);
           setIsLoading(false);
         })
         .catch(() => {
@@ -115,7 +172,7 @@ export function createSvgComponent(
       return <g className={className} style={style} />;
     }
     
-    if (!svgContent) {
+    if (!svgData.content) {
       // Fallback to image element if inline loading fails
       return (
         <g className={className} style={style}>
@@ -134,7 +191,7 @@ export function createSvgComponent(
       <g 
         className={className} 
         style={style}
-        dangerouslySetInnerHTML={{ __html: svgContent }}
+        dangerouslySetInnerHTML={{ __html: svgData.content }}
       />
     );
   };
@@ -181,4 +238,11 @@ export async function preloadCategorySvgs(
   });
   
   await Promise.all(promises);
+}
+
+/**
+ * Clear the SVG cache (useful for development/testing)
+ */
+export function clearSvgCache(): void {
+  Object.keys(svgDataCache).forEach(key => delete svgDataCache[key]);
 }

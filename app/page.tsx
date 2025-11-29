@@ -78,12 +78,12 @@ export default function Home() {
         {/* Left Content - Avatar Preview and Actions */}
         <div className="flex flex-col items-center justify-center p-8 gap-8">
           {/* Avatar Preview */}
-          <section id="avatar-preview" className="w-full max-w-2xl" aria-label="Avatar preview">
-            <div className="bg-primary-purple rounded-xl p-8">
+          <section id="avatar-preview" className="w-full max-w-lg" aria-label="Avatar preview">
+            <div className="bg-primary-purple rounded-xl aspect-square overflow-hidden">
               <ErrorBoundary>
                 <AvatarCanvas
                   ref={canvasRef}
-                  className="w-full h-auto drop-shadow-2xl"
+                  className="w-full h-full"
                 />
               </ErrorBoundary>
             </div>
@@ -105,13 +105,13 @@ export default function Home() {
       {/* Mobile Layout (<768px): Bottom Sheet */}
       <div className="md:hidden flex flex-col h-screen">
         {/* Top - Avatar Preview */}
-        <div className="flex-1 flex flex-col items-center justify-center p-4 overflow-auto">
-          <section id="avatar-preview" className="w-full max-w-md" aria-label="Avatar preview">
-            <div className="bg-primary-purple rounded-xl p-4">
+        <div className="flex-1 flex flex-col items-center justify-center p-4 min-h-0">
+          <section id="avatar-preview" className="w-full max-w-sm" aria-label="Avatar preview">
+            <div className="bg-primary-purple rounded-xl aspect-square overflow-hidden">
               <ErrorBoundary>
                 <AvatarCanvas
                   ref={canvasRef}
-                  className="w-full h-auto drop-shadow-xl"
+                  className="w-full h-full"
                 />
               </ErrorBoundary>
             </div>

@@ -189,4 +189,18 @@ body {
   .focus-halloween {
     @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-halloween-orange-500 focus-visible:ring-offset-2;
   }
+  
+  /* Ensure SVG maintains aspect ratio */
+  svg[viewBox] {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Consistent avatar container */
+  .avatar-container {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    aspect-ratio: 1 / 1;
+  }
 }
