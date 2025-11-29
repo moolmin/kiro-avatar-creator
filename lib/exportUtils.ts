@@ -60,6 +60,7 @@ export async function exportAvatarAsPNG(svgElement: SVGSVGElement): Promise<void
   
   if (isMobile) {
     // For mobile: Simple approach - just open current canvas in new window
+    let dataUrl = '';
     try {
       // Wait a bit to ensure all SVG content is fully rendered
       await new Promise(resolve => setTimeout(resolve, 100));
@@ -101,7 +102,7 @@ export async function exportAvatarAsPNG(svgElement: SVGSVGElement): Promise<void
       document.body.removeChild(container);
       
       // Get data URL
-      const dataUrl = canvas.toDataURL('image/png', 1.0);
+      dataUrl = canvas.toDataURL('image/png', 1.0);
       const filename = `kiroween-avatar-${Date.now()}.png`;
       
       // Open in new tab with a simple approach
@@ -158,8 +159,10 @@ export async function exportAvatarAsPNG(svgElement: SVGSVGElement): Promise<void
       }
     } catch (error) {
       console.error('Mobile export failed:', error);
-      // Fallback: try to open data URL directly
-      window.open(dataUrl, '_blank');
+      // Fallback: try to open data URL directly if we have it
+      if (dataUrl) {
+        window.open(dataUrl, '_blank');
+      }
     }
   } else {
     // Desktop: Keep original method
