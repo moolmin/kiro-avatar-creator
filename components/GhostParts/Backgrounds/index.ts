@@ -12,10 +12,11 @@
 
 import { createSvgRegistryFromFiles } from '@/lib/svgLoader';
 
-// List all SVG files in the backgrounds category
+// List all PNG files in the backgrounds category
 const svgFiles = [
-  'sparkles.svg',
-  'moon.svg',
+  'background-01.png',
+  'background-02.png',
+  'background-03.png',
   'none.svg',
 ];
 

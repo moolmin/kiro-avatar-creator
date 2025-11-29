@@ -148,12 +148,17 @@ export const svgTransforms: SVGTransformConfig = {
 
   // Backgrounds 카테고리
   backgrounds: {
-    'sparkles': {
+    'background-01': {
       scale: 1.0,
       translateX: 0,
       translateY: 0,
     },
-    'moon': {
+    'background-02': {
+      scale: 1.0,
+      translateX: 0,
+      translateY: 0,
+    },
+    'background-03': {
       scale: 1.0,
       translateX: 0,
       translateY: 0,

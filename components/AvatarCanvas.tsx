@@ -108,9 +108,17 @@ export const AvatarCanvas = forwardRef<SVGSVGElement, AvatarCanvasProps>(
         aria-label={buildAriaLabel()}
       >
         {/* Layer 1: Background */}
-        {BackgroundComponent && (
+        {config.background && config.background !== 'none' && (
           <SVGComponentErrorBoundary componentName={`background-${config.background}`}>
-            <BackgroundComponent />
+            <image
+              href={`/ghost-parts/backgrounds/${config.background}.png`}
+              x="0"
+              y="0"
+              width="1024"
+              height="1024"
+              preserveAspectRatio="xMidYMid meet"
+              transform={transformToString(getSVGTransform('backgrounds', config.background))}
+            />
           </SVGComponentErrorBoundary>
         )}
 

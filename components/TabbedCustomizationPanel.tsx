@@ -48,8 +48,8 @@ export default function TabbedCustomizationPanel({ className = '' }: Customizati
     const isSelected = isNoneOption 
       ? (!config[configKey] || config[configKey] === 'none' || config[configKey] === null)
       : config[configKey] === option.id;
-    // Use PNG for eyes, hats, accessories, and capes, SVG for others
-    const fileExtension = (category === 'eyes' || category === 'hats' || category === 'accessories' || category === 'capes') ? 'png' : 'svg';
+    // Use PNG for eyes, hats, accessories, capes, and backgrounds, SVG for others
+    const fileExtension = (category === 'eyes' || category === 'hats' || category === 'accessories' || category === 'capes' || category === 'backgrounds') ? 'png' : 'svg';
     const imagePath = `/ghost-parts/${category}/${option.id}.${fileExtension}`;
     
     return (
