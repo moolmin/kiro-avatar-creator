@@ -80,7 +80,7 @@ export default function Home() {
         <div className="text-center">
           <div className="inline-block animate-spin rounded-full h-16 w-16 border-4 border-halloween-purple-200 border-t-halloween-purple-600 mb-6"></div>
           <p className="text-xl font-medium text-gray-800">Loading Avatar Maker...</p>
-          <p className="text-sm text-gray-600 mt-2">Preparing your spooky canvas 👻</p>
+          <p className="text-sm text-gray-600 mt-2">Preparing your kiroween canvas</p>
         </div>
       </main>
     );
