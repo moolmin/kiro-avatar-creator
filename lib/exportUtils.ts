@@ -97,31 +97,37 @@ export async function exportAvatarAsPNG(svgElement: SVGSVGElement): Promise<void
       const timestamp = Date.now();
       const filename = `kiroween-avatar-${timestamp}.png`;
       
-      // Check if mobile device
+      // Check if mobile device or iOS Safari
       const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
       
-      if (isMobile) {
-        // On mobile, convert to data URL and open in new window
-        const dataUrl = canvas.toDataURL('image/png', 1.0);
-        const newWindow = window.open();
-        if (newWindow) {
-          newWindow.document.write(`
-            <html>
-              <head>
-                <title>Kiroween Avatar</title>
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <style>
-                  body { margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #f0f0f0; }
-                  img { max-width: 100%; height: auto; }
-                </style>
-              </head>
-              <body>
-                <img src="${dataUrl}" alt="Kiroween Avatar" />
-              </body>
-            </html>
-          `);
-          newWindow.document.close();
-        }
+      if (isMobile || isSafari) {
+        // On mobile/Safari, convert to blob and open in new tab with proper download support
+        canvas.toBlob((blob) => {
+          if (blob) {
+            const url = URL.createObjectURL(blob);
+            
+            // Try to open in new tab first
+            const newTab = window.open(url, '_blank');
+            
+            if (!newTab) {
+              // If popup blocked, create a link element for user to click
+              const link = document.createElement('a');
+              link.href = url;
+              link.download = filename;
+              link.target = '_blank';
+              link.style.display = 'none';
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+            }
+            
+            // Clean up blob URL after a delay
+            setTimeout(() => URL.revokeObjectURL(url), 5000);
+          } else {
+            throw new Error('Failed to create PNG blob');
+          }
+        }, 'image/png', 1.0);
       } else {
         // On desktop, trigger download
         canvas.toBlob((blob) => {
