@@ -97,54 +97,29 @@ export async function exportAvatarAsPNG(svgElement: SVGSVGElement): Promise<void
       const timestamp = Date.now();
       const filename = `kiroween-avatar-${timestamp}.png`;
       
-      // Check if mobile device or iOS Safari
-      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-      const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+      // Convert canvas to data URL
+      const dataUrl = canvas.toDataURL('image/png', 1.0);
       
-      if (isMobile || isSafari) {
-        // On mobile/Safari, convert to blob and open in new tab with proper download support
-        canvas.toBlob((blob) => {
-          if (blob) {
-            const url = URL.createObjectURL(blob);
-            
-            // Try to open in new tab first
-            const newTab = window.open(url, '_blank');
-            
-            if (!newTab) {
-              // If popup blocked, create a link element for user to click
-              const link = document.createElement('a');
-              link.href = url;
-              link.download = filename;
-              link.target = '_blank';
-              link.style.display = 'none';
-              document.body.appendChild(link);
-              link.click();
-              document.body.removeChild(link);
-            }
-            
-            // Clean up blob URL after a delay
-            setTimeout(() => URL.revokeObjectURL(url), 5000);
-          } else {
-            throw new Error('Failed to create PNG blob');
-          }
-        }, 'image/png', 1.0);
+      // Create download link
+      const link = document.createElement('a');
+      
+      // Check if download attribute is supported
+      if (typeof link.download === 'string') {
+        link.href = dataUrl;
+        link.download = filename;
+        
+        // Firefox requires the link to be in the body
+        document.body.appendChild(link);
+        
+        // Simulate click
+        link.click();
+        
+        // Remove the link when done
+        document.body.removeChild(link);
       } else {
-        // On desktop, trigger download
-        canvas.toBlob((blob) => {
-          if (blob) {
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = filename;
-            link.style.display = 'none';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            setTimeout(() => URL.revokeObjectURL(url), 100);
-          } else {
-            throw new Error('Failed to create PNG blob');
-          }
-        }, 'image/png', 1.0);
+        // Fallback for browsers that don't support download attribute
+        // Open in new window/tab
+        window.open(dataUrl);
       }
     } finally {
       // Clean up temporary container
