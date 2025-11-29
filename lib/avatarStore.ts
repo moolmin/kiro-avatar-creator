@@ -34,7 +34,7 @@ interface AvatarStore {
 const defaultConfig: AvatarConfiguration = {
   eyes: 'eyes-01',
   hat: null,
-  cape: 'white-cape',
+  cape: 'none',
   accessory: null,
   background: 'none',
 };
@@ -51,8 +51,8 @@ function validateConfigValue(
   value: string | null,
   isNullable: boolean = false
 ): string | null {
-  // Null is valid for nullable categories (hat, accessory)
-  if (value === null) {
+  // Null or "none" is valid for nullable categories
+  if (value === null || value === 'none') {
     if (isNullable) {
       return null;
     }
@@ -91,7 +91,7 @@ function validateConfiguration(
   return {
     eyes: validateConfigValue('eyes', config.eyes ?? defaultConfig.eyes, false) as string,
     hat: validateConfigValue('hats', config.hat ?? defaultConfig.hat, true),
-    cape: validateConfigValue('capes', config.cape ?? defaultConfig.cape, false) as string,
+    cape: validateConfigValue('capes', config.cape ?? defaultConfig.cape, true),
     accessory: validateConfigValue('accessories', config.accessory ?? defaultConfig.accessory, true),
     background: validateConfigValue('backgrounds', config.background ?? defaultConfig.background, false) as string,
   };

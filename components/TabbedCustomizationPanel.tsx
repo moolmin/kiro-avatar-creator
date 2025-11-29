@@ -48,8 +48,8 @@ export default function TabbedCustomizationPanel({ className = '' }: Customizati
     const isSelected = isNoneOption 
       ? (!config[configKey] || config[configKey] === 'none' || config[configKey] === null)
       : config[configKey] === option.id;
-    // Use PNG for eyes and hats, SVG for others
-    const fileExtension = (category === 'eyes' || category === 'hats') ? 'png' : 'svg';
+    // Use PNG for eyes, hats, accessories, and capes, SVG for others
+    const fileExtension = (category === 'eyes' || category === 'hats' || category === 'accessories' || category === 'capes') ? 'png' : 'svg';
     const imagePath = `/ghost-parts/${category}/${option.id}.${fileExtension}`;
     
     return (
@@ -94,7 +94,7 @@ export default function TabbedCustomizationPanel({ className = '' }: Customizati
 
   const renderTabContent = () => {
     const options = getCategoryOptions(activeTab);
-    const isOptionalCategory = ['hats', 'accessories', 'backgrounds'].includes(activeTab);
+    const isOptionalCategory = ['hats', 'accessories', 'backgrounds', 'capes'].includes(activeTab);
     
     return (
       <div className="grid grid-cols-3 sm:grid-cols-4 gap-3 sm:gap-4 p-4">

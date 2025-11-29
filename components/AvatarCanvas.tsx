@@ -7,10 +7,11 @@
  * 
  * Layering order (bottom to top):
  * 1. Background
- * 2. Cape
+ * 2. Ghost Body
  * 3. Eyes
  * 4. Hat
  * 5. Accessory
+ * 6. Cape (Top Layer)
  * 
  * Requirements: 1.1, 2.1, 3.1, 4.1, 5.1, 11.2
  */
@@ -121,16 +122,7 @@ export const AvatarCanvas = forwardRef<SVGSVGElement, AvatarCanvasProps>(
           />
         )}
 
-        {/* Layer 3: Cape */}
-        {CapeComponent && (
-          <SVGComponentErrorBoundary componentName={`cape-${config.cape}`}>
-            <g transform={transformToString(getSVGTransform('capes', config.cape))}>
-              <CapeComponent />
-            </g>
-          </SVGComponentErrorBoundary>
-        )}
-
-        {/* Layer 4: Eyes */}
+        {/* Layer 3: Eyes */}
         {config.eyes && (
           <SVGComponentErrorBoundary componentName={`eyes-${config.eyes}`}>
             <image
@@ -145,7 +137,7 @@ export const AvatarCanvas = forwardRef<SVGSVGElement, AvatarCanvasProps>(
           </SVGComponentErrorBoundary>
         )}
 
-        {/* Layer 5: Hat */}
+        {/* Layer 4: Hat */}
         {config.hat && (
           <SVGComponentErrorBoundary componentName={`hat-${config.hat}`}>
             <image
@@ -160,12 +152,33 @@ export const AvatarCanvas = forwardRef<SVGSVGElement, AvatarCanvasProps>(
           </SVGComponentErrorBoundary>
         )}
 
-        {/* Layer 6: Accessory */}
-        {AccessoryComponent && config.accessory && (
+        {/* Layer 5: Accessory */}
+        {config.accessory && (
           <SVGComponentErrorBoundary componentName={`accessory-${config.accessory}`}>
-            <g transform={transformToString(getSVGTransform('accessories', config.accessory))}>
-              <AccessoryComponent />
-            </g>
+            <image
+              href={`/ghost-parts/accessories/${config.accessory}.png`}
+              x="0"
+              y="0"
+              width="1024"
+              height="1024"
+              preserveAspectRatio="xMidYMid meet"
+              transform={transformToString(getSVGTransform('accessories', config.accessory))}
+            />
+          </SVGComponentErrorBoundary>
+        )}
+
+        {/* Layer 6: Cape (Top Layer) */}
+        {config.cape && (
+          <SVGComponentErrorBoundary componentName={`cape-${config.cape}`}>
+            <image
+              href={`/ghost-parts/capes/${config.cape}.png`}
+              x="0"
+              y="0"
+              width="1024"
+              height="1024"
+              preserveAspectRatio="xMidYMid meet"
+              transform={transformToString(getSVGTransform('capes', config.cape))}
+            />
           </SVGComponentErrorBoundary>
         )}
       </svg>

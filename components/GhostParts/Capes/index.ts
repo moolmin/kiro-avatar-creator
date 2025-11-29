@@ -12,12 +12,11 @@
 
 import { createSvgRegistryFromFiles } from '@/lib/svgLoader';
 
-// List all SVG files in the capes category
+// List all PNG files in the capes category
 const svgFiles = [
-  'white-cape.svg',
-  'purple-cape.svg',
-  'black-cape.svg',
-  'capes-01.svg',
+  'capes-01.png',
+  'capes-02.png',
+  'capes-03.png',
 ];
 
 // Automatically generate registry from SVG files

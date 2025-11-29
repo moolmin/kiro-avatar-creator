@@ -72,62 +72,77 @@ export const svgTransforms: SVGTransformConfig = {
   // Hats 카테고리
   hats: {
     'hat-01': {
-       scale: 0.4,
+      scale: 0.4,
       translateX: 1100,
       translateY: -300,
     },
     'hat-02': {
-      scale: 1.0,
-      translateX: 0,
-      translateY: 0,
+      scale: 0.44,
+      translateX: 340,
+      translateY: -280,
     },
     'hat-03': {
-      scale: 1.0,
-      translateX: 0,
-      translateY: 0,
+      scale: 0.44,
+      translateX: 340,
+      translateY: -280,
+    },
+    'hat-04': {
+      scale: 0.7,
+      translateX: 260,
+      translateY: -480,
+    },
+    'hat-05': {
+      scale: 0.34,
+      translateX: 1080,
+      translateY: -280,
     },
   },
 
   // Capes 카테고리
   capes: {
-    'white-cape': {
-      scale: 1.0,
-      translateX: 0,
-      translateY: 0,
-    },
-    'purple-cape': {
-      scale: 1.0,
-      translateX: 0,
-      translateY: 0,
-    },
-    'black-cape': {
-      scale: 1.0,
-      translateX: 0,
-      translateY: 0,
-    },
     'capes-01': {
-      scale: 0.352,
-      translateX: -104,
-      translateY: 920,
+      scale: 1.02,
+      translateX: -36,
+      translateY: 168,
+    },
+    'capes-02': {
+      scale: 0.96,
+      translateX: -26,
+      translateY: 200,
+    },
+    'capes-03': {
+       scale: 0.98,
+      translateX: -24,
+      translateY: 176,
     },
   },
 
   // Accessories 카테고리
   accessories: {
-    'wand': {
-      scale: 1.0,
-      translateX: 0,
-      translateY: 0,
+    'accessories-01': {
+      scale: 0.4,
+      translateX: 1040,
+      translateY: 1200,
     },
-    'pumpkin-basket': {
-      scale: 1.0,
-      translateX: 0,
-      translateY: 0,
+    'accessories-02.png': {
+      scale: 0.4,
+      translateX: 1040,
+      translateY: 1200,
     },
-    'candy': {
-      scale: 1.0,
-      translateX: 0,
-      translateY: 0,
+    'accessories-03.png': {
+       scale: 0.84,
+      translateX: 140,
+      translateY: 200,
+    },
+    'accessories-04.png': {
+      scale: 0.3,
+      translateX: 1560,
+      translateY: 1400,
+    },
+    'accessories-05': {
+      scale: 1.42,
+      translateX: -164,
+      translateY: -260,
     },
   },
 

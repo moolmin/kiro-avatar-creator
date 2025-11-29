@@ -20,8 +20,8 @@ export interface AvatarConfiguration {
   // Hat (nullable - can be removed)
   hat: string | null;
   
-  // Cape
-  cape: string;
+  // Cape (nullable - can be removed)
+  cape: string | null;
   
   // Accessory (nullable - can be removed)
   accessory: string | null;
