@@ -18,6 +18,8 @@ const svgFiles = [
   'background-01.png',
   'background-02.png',
   'background-03.png',
+  'background-04.png',
+  'background-05.png',
 ];
 
 // Automatically generate registry from SVG files

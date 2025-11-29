@@ -96,6 +96,11 @@ export const svgTransforms: SVGTransformConfig = {
       translateX: 1080,
       translateY: -280,
     },
+    'hat-06': {
+      scale: 0.7,
+      translateX: 340,
+      translateY: -350,
+    },
   },
 
   // Capes 카테고리
@@ -111,9 +116,14 @@ export const svgTransforms: SVGTransformConfig = {
       translateY: 200,
     },
     'capes-03': {
-       scale: 0.98,
+      scale: 0.98,
       translateX: -24,
       translateY: 176,
+    },
+    'capes-04': {
+      scale: 1.015,
+      translateX: -57,
+      translateY: 170,
     },
   },
 
@@ -124,17 +134,17 @@ export const svgTransforms: SVGTransformConfig = {
       translateX: 1040,
       translateY: 1200,
     },
-    'accessories-02.png': {
+    'accessories-02': {
       scale: 0.4,
       translateX: 1040,
       translateY: 1200,
     },
-    'accessories-03.png': {
+    'accessories-03': {
        scale: 0.84,
       translateX: 140,
       translateY: 200,
     },
-    'accessories-04.png': {
+    'accessories-04': {
       scale: 0.3,
       translateX: 1560,
       translateY: 1400,
@@ -143,6 +153,31 @@ export const svgTransforms: SVGTransformConfig = {
       scale: 1.42,
       translateX: -164,
       translateY: -260,
+    },
+    'accessories-06': {
+      scale: 0.18,
+      translateX: 2900,
+      translateY: 2800,
+    },
+    'accessories-07': {
+      scale: 0.36,
+      translateX: 1700,
+      translateY: 1600,
+    },
+    'accessories-08': {
+      scale: 0.4,
+      translateX: 1000,
+      translateY: 700,
+    },
+    'accessories-09': {
+      scale: 0.36,
+      translateX: 1800,
+      translateY: 1600,
+    },
+    'accessories-10': {
+      scale: 0.8,
+      translateX: 500,
+      translateY: 240,
     },
   },
 
@@ -164,6 +199,16 @@ export const svgTransforms: SVGTransformConfig = {
       translateY: 0,
     },
     'background-03': {
+      scale: 1.0,
+      translateX: 0,
+      translateY: 0,
+    },
+    'background-04': {
+      scale: 1.0,
+      translateX: 0,
+      translateY: 0,
+    },
+    'background-05': {
       scale: 1.0,
       translateX: 0,
       translateY: 0,
