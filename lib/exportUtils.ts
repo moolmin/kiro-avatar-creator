@@ -97,29 +97,111 @@ export async function exportAvatarAsPNG(svgElement: SVGSVGElement): Promise<void
       const timestamp = Date.now();
       const filename = `kiroween-avatar-${timestamp}.png`;
       
-      // Convert canvas to data URL
-      const dataUrl = canvas.toDataURL('image/png', 1.0);
+      // Check if mobile device
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
       
-      // Create download link
-      const link = document.createElement('a');
-      
-      // Check if download attribute is supported
-      if (typeof link.download === 'string') {
+      if (isMobile) {
+        // For mobile: Convert to blob and create object URL
+        canvas.toBlob(async (blob) => {
+          if (!blob) {
+            throw new Error('Failed to create image blob');
+          }
+          
+          // For iOS: Use native share API if available
+          if (navigator.share && /iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+            try {
+              const file = new File([blob], filename, { type: 'image/png' });
+              await navigator.share({
+                files: [file],
+                title: 'Kiroween Avatar',
+              });
+              return;
+            } catch (err) {
+              console.log('Share API failed, falling back to download');
+            }
+          }
+          
+          // For Android and fallback: Convert to data URL and open in new tab
+          const reader = new FileReader();
+          reader.onloadend = function() {
+            const dataUrl = reader.result as string;
+            
+            // Create a temporary anchor element
+            const tempLink = document.createElement('a');
+            tempLink.href = dataUrl;
+            tempLink.download = filename;
+            tempLink.style.display = 'none';
+            
+            // Add to body, click, and remove
+            document.body.appendChild(tempLink);
+            tempLink.click();
+            
+            // Small delay before removing
+            setTimeout(() => {
+              document.body.removeChild(tempLink);
+            }, 100);
+            
+            // If download didn't work, open in new window as fallback
+            setTimeout(() => {
+              const newWindow = window.open('', '_blank');
+              if (newWindow) {
+                newWindow.document.write(`
+                  <!DOCTYPE html>
+                  <html>
+                    <head>
+                      <title>${filename}</title>
+                      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                      <style>
+                        body { 
+                          margin: 0; 
+                          padding: 20px; 
+                          background: #f0f0f0; 
+                          display: flex; 
+                          flex-direction: column;
+                          align-items: center;
+                          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+                        }
+                        img { 
+                          max-width: 100%; 
+                          height: auto; 
+                          border: 1px solid #ddd;
+                          border-radius: 8px;
+                          box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                        }
+                        .instructions {
+                          margin-top: 20px;
+                          padding: 15px;
+                          background: white;
+                          border-radius: 8px;
+                          text-align: center;
+                          color: #333;
+                        }
+                      </style>
+                    </head>
+                    <body>
+                      <img src="${dataUrl}" alt="Kiroween Avatar">
+                      <div class="instructions">
+                        <p><strong>To save this image:</strong></p>
+                        <p>Long press the image and select "Save Image"</p>
+                      </div>
+                    </body>
+                  </html>
+                `);
+                newWindow.document.close();
+              }
+            }, 500);
+          };
+          reader.readAsDataURL(blob);
+        }, 'image/png', 1.0);
+      } else {
+        // Desktop: Original download method
+        const dataUrl = canvas.toDataURL('image/png', 1.0);
+        const link = document.createElement('a');
         link.href = dataUrl;
         link.download = filename;
-        
-        // Firefox requires the link to be in the body
         document.body.appendChild(link);
-        
-        // Simulate click
         link.click();
-        
-        // Remove the link when done
         document.body.removeChild(link);
-      } else {
-        // Fallback for browsers that don't support download attribute
-        // Open in new window/tab
-        window.open(dataUrl);
       }
     } finally {
       // Clean up temporary container
