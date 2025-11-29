@@ -32,7 +32,7 @@ interface AvatarStore {
  * Uses the first available option from each category
  */
 const defaultConfig: AvatarConfiguration = {
-  eyes: 'round-eyes',
+  eyes: 'eyes-01',
   hat: null,
   cape: 'white-cape',
   accessory: null,

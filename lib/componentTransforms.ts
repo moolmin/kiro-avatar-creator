@@ -32,20 +32,45 @@ export const svgTransforms: SVGTransformConfig = {
 
   // Eyes 카테고리
   eyes: {
-    'round-eyes': {
-      scale: 1.0,
-      translateX: 0,
-      translateY: 0,
-    },
-    'happy-eyes': {
-      scale: 1.0,
-      translateX: 0,
-      translateY: 0,
-    },
     'eyes-01': {
       scale: 0.3,
       translateX: 1600,
       translateY: 1000,
+    },
+    'eyes-02': {
+      scale: 0.3,
+      translateX: 1600,
+      translateY: 1000,
+    },
+    'eyes-03': {
+      scale: 0.45,
+      translateX: 1020,
+      translateY: 650,
+    },
+    'eyes-04': {
+      scale: 0.32,
+      translateX: 1380,
+      translateY: 800,
+    },
+    'eyes-05': {
+      scale: 1.0,
+      translateX: 0,
+      translateY: 0,
+    },
+    'eyes-06': {
+       scale: 0.24,
+      translateX: 1940,
+      translateY: 1200,
+    },
+    'eyes-07': {
+      scale: 0.22,
+      translateX: 1940,
+      translateY: 1260,
+    },
+    'eyes-08': {
+     scale: 0.23,
+      translateX: 1900,
+      translateY: 1280,
     },
   },
 
@@ -79,6 +104,11 @@ export const svgTransforms: SVGTransformConfig = {
       scale: 1.0,
       translateX: 0,
       translateY: 0,
+    },
+    'capes-01': {
+      scale: 0.352,
+      translateX: -104,
+      translateY: 920,
     },
   },
 
@@ -148,7 +178,7 @@ export function getSVGTransform(
 /**
  * Transform 값을 SVG transform 문자열로 변환합니다
  */
-export function transformToString(transform: ComponentTransform): string {
+export function transformToString(transform: SVGTransform): string {
   const { scale, translateX, translateY } = transform;
   
   let transformString = '';
@@ -162,5 +192,5 @@ export function transformToString(transform: ComponentTransform): string {
     transformString += `translate(${translateX}, ${translateY})`;
   }
   
-  return transformString || undefined;
+  return transformString;
 }

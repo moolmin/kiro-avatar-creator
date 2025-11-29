@@ -32,9 +32,9 @@ export default function Home() {
         await Promise.all([
           // Preload the default ghost body
           fetch('/ghost-parts/kiro-body.svg'),
-          preloadCategorySvgs('eyes', ['round-eyes.svg', 'happy-eyes.svg', 'eyes-01.svg']),
+          preloadCategorySvgs('eyes', ['eyes-01.svg', 'eyes-02.svg', 'eyes-03.svg', 'eyes-04.svg', 'eyes-06.svg', 'eyes-07.svg', 'eyes-08.svg']),
           preloadCategorySvgs('hats', ['witch-hat.svg', 'pumpkin-hat.svg', 'none.svg']),
-          preloadCategorySvgs('capes', ['white-cape.svg', 'purple-cape.svg', 'black-cape.svg']),
+          preloadCategorySvgs('capes', ['white-cape.svg', 'purple-cape.svg', 'black-cape.svg', 'capes-01.svg']),
           preloadCategorySvgs('accessories', ['none.svg', 'wand.svg', 'pumpkin-basket.svg', 'candy.svg']),
           preloadCategorySvgs('backgrounds', ['sparkles.svg', 'moon.svg', 'none.svg']),
         ]);
