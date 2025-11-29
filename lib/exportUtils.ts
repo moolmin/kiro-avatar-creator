@@ -95,7 +95,7 @@ export async function exportAvatarAsPNG(svgElement: SVGSVGElement): Promise<void
       
       // Generate filename with timestamp pattern
       const timestamp = Date.now();
-      const filename = `kiro-avatar-${timestamp}.png`;
+      const filename = `kiroween-avatar-${timestamp}.png`;
       
       // Convert canvas to blob and trigger download
       canvas.toBlob((blob) => {

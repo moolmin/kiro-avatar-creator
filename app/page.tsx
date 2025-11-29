@@ -130,8 +130,8 @@ export default function Home() {
       {/* Mobile Layout (<768px): Bottom Sheet */}
       <div className="md:hidden flex flex-col h-screen overflow-hidden">
         {/* Top - Avatar Preview */}
-        <div className="flex-shrink-0 flex flex-col items-center justify-center p-4">
-          <section id="avatar-preview" className="w-full max-w-sm" aria-label="Avatar preview">
+        <div className="flex-shrink-0 flex flex-col items-center justify-center p-3 py-4">
+          <section id="avatar-preview" className="w-full max-w-[280px]" aria-label="Avatar preview">
             <div className="bg-primary-purple rounded-xl aspect-square overflow-hidden">
               <ErrorBoundary>
                 <AvatarCanvas
@@ -143,7 +143,7 @@ export default function Home() {
           </section>
 
           {/* Action Buttons */}
-          <nav className="flex gap-3 w-full max-w-sm mt-6 justify-center sm:block hidden" aria-label="Avatar actions">
+          <nav className="flex gap-3 w-full max-w-[280px] mt-3 justify-center sm:block hidden" aria-label="Avatar actions">
             <RandomButton />
           </nav>
         </div>
