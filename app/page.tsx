@@ -97,7 +97,7 @@ export default function Home() {
         </div>
 
         {/* Right Sidebar - Tabbed Customization Panel */}
-        <aside className="bg-white border-l border-gray-200 overflow-hidden" aria-label="Customization sidebar">
+        <aside className="bg-white overflow-hidden" aria-label="Customization sidebar">
           <TabbedCustomizationPanel className="h-full" />
         </aside>
       </div>
