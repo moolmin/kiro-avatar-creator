@@ -31,18 +31,19 @@ import { ComponentRegistryEntry, GhostPartProps } from './types';
  */
 export function filenameToLabel(filename: string): string {
   return filename
-    .replace(/\.svg$/, '')
+    .replace(/\.(svg|png)$/, '')
     .split('-')
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
 }
 
 /**
- * Convert filename to ID (remove .svg extension)
+ * Convert filename to ID (remove .svg or .png extension)
  * @example "round-eyes.svg" -> "round-eyes"
+ * @example "round-eyes.png" -> "round-eyes"
  */
 export function filenameToId(filename: string): string {
-  return filename.replace(/\.svg$/, '');
+  return filename.replace(/\.(svg|png)$/, '');
 }
 
 
@@ -140,24 +141,30 @@ function calculateNormalizationTransform(viewBox: string | null, svgPath?: strin
 }
 
 /**
- * Create a React component that renders an SVG from the public folder
+ * Create a React component that renders an SVG or PNG from the public folder
  * 
  * @param category - Category name (e.g., 'eyes', 'mouths')
- * @param filename - SVG filename (e.g., 'round-eyes.svg')
- * @returns React component that renders the SVG content inline
+ * @param filename - SVG or PNG filename (e.g., 'round-eyes.svg', 'eyes-01.png')
+ * @returns React component that renders the content
  */
 export function createSvgComponent(
   category: string,
   filename: string
 ): React.ComponentType<GhostPartProps> {
-  const svgPath = `/ghost-parts/${category}/${filename}`;
+  const filePath = `/ghost-parts/${category}/${filename}`;
+  const isPng = filename.endsWith('.png');
   
   const SvgComponent = ({ className, style }: GhostPartProps) => {
     const [svgData, setSvgData] = useState<SvgContentData>({ content: '', viewBox: null });
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(!isPng);
     
     useEffect(() => {
-      loadSvgContent(svgPath)
+      if (isPng) {
+        // PNG files don't need loading
+        return;
+      }
+      
+      loadSvgContent(filePath)
         .then(data => {
           setSvgData(data);
           setIsLoading(false);
@@ -166,6 +173,20 @@ export function createSvgComponent(
           setIsLoading(false);
         });
     }, []);
+    
+    // For PNG files, always use image element
+    if (isPng) {
+      return (
+        <g className={className} style={style}>
+          <image
+            href={filePath}
+            width="1024"
+            height="1024"
+            preserveAspectRatio="xMidYMid meet"
+          />
+        </g>
+      );
+    }
     
     if (isLoading) {
       // Return empty group while loading
@@ -177,7 +198,7 @@ export function createSvgComponent(
       return (
         <g className={className} style={style}>
           <image
-            href={svgPath}
+            href={filePath}
             width="1024"
             height="1024"
             preserveAspectRatio="xMidYMid meet"

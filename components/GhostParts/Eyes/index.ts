@@ -12,15 +12,15 @@
 
 import { createSvgRegistryFromFiles } from '@/lib/svgLoader';
 
-// List all SVG files in the eyes category
+// List all PNG files in the eyes category
 const svgFiles = [
-  'eyes-01.svg',
-  'eyes-02.svg',
-  'eyes-03.svg',
-  'eyes-04.svg',
-  'eyes-06.svg',
-  'eyes-07.svg',
-  'eyes-08.svg',
+  'eyes-01.png',
+  'eyes-02.png',
+  'eyes-03.png',
+  'eyes-04.png',
+  'eyes-05.png',
+  'eyes-06.png',
+  'eyes-07.png',
 ];
 
 // Automatically generate registry from SVG files

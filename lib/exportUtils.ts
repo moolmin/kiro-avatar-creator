@@ -2,6 +2,54 @@ import html2canvas from 'html2canvas';
 import download from 'downloadjs';
 
 /**
+ * Convert image URL to base64 data URL
+ */
+async function imageToBase64(url: string): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) {
+        reject(new Error('Failed to get canvas context'));
+        return;
+      }
+      ctx.drawImage(img, 0, 0);
+      resolve(canvas.toDataURL('image/png'));
+    };
+    img.onerror = () => reject(new Error(`Failed to load image: ${url}`));
+    img.src = url;
+  });
+}
+
+/**
+ * Convert all external image references in SVG to base64 data URLs
+ */
+async function embedImagesInSvg(svgElement: SVGSVGElement): Promise<SVGSVGElement> {
+  const cloned = svgElement.cloneNode(true) as SVGSVGElement;
+  const images = cloned.querySelectorAll('image');
+  
+  const promises = Array.from(images).map(async (img) => {
+    const href = img.getAttribute('href') || img.getAttribute('xlink:href');
+    if (href && !href.startsWith('data:')) {
+      try {
+        const base64 = await imageToBase64(href);
+        img.setAttribute('href', base64);
+        img.removeAttribute('xlink:href');
+      } catch (error) {
+        console.warn(`Failed to embed image: ${href}`, error);
+      }
+    }
+  });
+  
+  await Promise.all(promises);
+  return cloned;
+}
+
+/**
  * Exports an SVG element as a PNG image with transparent background
  * @param svgElement - The SVG element to export
  * @throws Error if export fails
@@ -20,8 +68,8 @@ export async function exportAvatarAsPNG(svgElement: SVGSVGElement): Promise<void
     container.style.top = '0';
     container.style.background = 'transparent';
     
-    // Clone the SVG to avoid modifying the original
-    const clonedSvg = svgElement.cloneNode(true) as SVGSVGElement;
+    // Clone the SVG and embed all external images as base64
+    const clonedSvg = await embedImagesInSvg(svgElement);
     clonedSvg.setAttribute('width', '1024');
     clonedSvg.setAttribute('height', '1024');
     clonedSvg.style.width = '1024px';
