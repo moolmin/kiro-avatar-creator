@@ -148,6 +148,11 @@ export const svgTransforms: SVGTransformConfig = {
 
   // Backgrounds 카테고리
   backgrounds: {
+    'background-00': {
+      scale: 1.0,
+      translateX: 0,
+      translateY: 0,
+    },
     'background-01': {
       scale: 1.0,
       translateX: 0,

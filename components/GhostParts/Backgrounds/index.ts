@@ -14,10 +14,10 @@ import { createSvgRegistryFromFiles } from '@/lib/svgLoader';
 
 // List all PNG files in the backgrounds category
 const svgFiles = [
+  'background-00.png',
   'background-01.png',
   'background-02.png',
   'background-03.png',
-  'none.svg',
 ];
 
 // Automatically generate registry from SVG files

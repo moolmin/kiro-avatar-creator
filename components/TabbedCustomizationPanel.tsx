@@ -94,7 +94,7 @@ export default function TabbedCustomizationPanel({ className = '' }: Customizati
 
   const renderTabContent = () => {
     const options = getCategoryOptions(activeTab);
-    const isOptionalCategory = ['hats', 'accessories', 'backgrounds', 'capes'].includes(activeTab);
+    const isOptionalCategory = ['hats', 'accessories', 'capes'].includes(activeTab);
     
     return (
       <div className="grid grid-cols-3 sm:grid-cols-4 gap-3 sm:gap-4 p-4">

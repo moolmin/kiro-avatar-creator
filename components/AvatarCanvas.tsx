@@ -112,11 +112,11 @@ export const AvatarCanvas = forwardRef<SVGSVGElement, AvatarCanvasProps>(
           <SVGComponentErrorBoundary componentName={`background-${config.background}`}>
             <image
               href={`/ghost-parts/backgrounds/${config.background}.png`}
-              x="0"
-              y="0"
-              width="1024"
-              height="1024"
-              preserveAspectRatio="xMidYMid meet"
+              x="-64"
+              y="-64"
+              width="1152"
+              height="1152"
+              preserveAspectRatio="xMidYMid slice"
               transform={transformToString(getSVGTransform('backgrounds', config.background))}
             />
           </SVGComponentErrorBoundary>

@@ -34,9 +34,9 @@ interface AvatarStore {
 const defaultConfig: AvatarConfiguration = {
   eyes: 'eyes-01',
   hat: null,
-  cape: 'none',
+  cape: null,
   accessory: null,
-  background: 'none',
+  background: 'background-00',
 };
 
 /**
