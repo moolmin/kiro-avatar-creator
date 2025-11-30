@@ -219,8 +219,8 @@ export default function TabbedCustomizationPanel({ className = '', svgRef }: Cus
             aria-selected={activeTab === tab.id}
             role="tab"
           >
-            <div className="flex items-center justify-center mb-1 sm:mb-2">{tab.icon}</div>
-            <span className="hidden sm:block text-xs sm:text-sm font-semibold">{tab.label}</span>
+            <div className="flex items-center justify-center">{tab.icon}</div>
+            <span className="sr-only">{tab.label}</span>
           </button>
         ))}
       </div>
