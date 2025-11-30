@@ -19,7 +19,7 @@ const awsDiatype = localFont({
   variable: "--font-aws-diatype",
 });
 
-const awsDiatypeMono = localFont({
+const awsDiatypeRounded = localFont({
   src: [
     {
       path: "../public/fonts/AWSDiatypeRoundedSemi-Mono-Regular.woff2",
@@ -32,7 +32,7 @@ const awsDiatypeMono = localFont({
       style: "normal",
     },
   ],
-  variable: "--font-aws-diatype-mono",
+  variable: "--font-aws-diatype-rounded",
 });
 
 export const metadata: Metadata = {
@@ -55,8 +55,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${awsDiatype.variable} ${awsDiatypeMono.variable}`}>
-      <body className={awsDiatype.className} style={{fontFamily: 'var(--font-aws-diatype)'}}>{children}</body>
+    <html lang="en" className={`${awsDiatype.variable} ${awsDiatypeRounded.variable}`}>
+      <body className={awsDiatypeRounded.className} style={{fontFamily: 'var(--font-aws-diatype-rounded)'}}>{children}</body>
     </html>
   );
 }

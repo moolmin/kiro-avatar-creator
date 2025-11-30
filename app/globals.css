@@ -25,9 +25,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Mono font utility class */
-.font-mono {
-  font-family: var(--font-aws-diatype-mono), 'Courier New', monospace;
+/* Rounded font utility class */
+.font-rounded {
+  font-family: var(--font-aws-diatype-rounded), 'Courier New', monospace;
 }
 
 /* Modern minimal scrollbar */
