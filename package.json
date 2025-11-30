@@ -17,6 +17,9 @@
   "dependencies": {
     "@headlessui/react": "^2.2.9",
     "downloadjs": "^1.4.7",
+    "embla-carousel": "^8.6.0",
+    "embla-carousel-autoplay": "^8.6.0",
+    "embla-carousel-react": "^8.6.0",
     "fast-check": "^4.3.0",
     "html2canvas": "^1.4.1",
     "next": "^14.2.33",
