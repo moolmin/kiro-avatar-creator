@@ -122,9 +122,13 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-4">
             <FeatureCard
               icon={
-                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a1 1 0 01-1-1V9a1 1 0 011-1h1a2 2 0 100-4H4a1 1 0 01-1-1V4a1 1 0 011-1h3a1 1 0 001-1z" />
-                </svg>
+                <Image 
+                  src="/icons/fully.svg" 
+                  alt="Fully Customizable" 
+                  width={28} 
+                  height={28}
+                  className="w-7 h-7 brightness-0 invert"
+                />
               }
               title="Fully Customizable"
               description="Mix and match from dozens of unique ghost parts to create your perfect spooky avatar"
@@ -132,9 +136,13 @@ export default function Home() {
 
             <FeatureCard
               icon={
-                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14-7H5m14 14H5" />
-                </svg>
+                <Image 
+                  src="/icons/multiple.svg" 
+                  alt="Multiple Elements" 
+                  width={28} 
+                  height={28}
+                  className="w-7 h-7 brightness-0 invert"
+                />
               }
               title="Multiple Elements"
               description="Choose from eyes, hats, capes, accessories, and backgrounds for endless combinations"
@@ -142,9 +150,13 @@ export default function Home() {
 
             <FeatureCard
               icon={
-                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
+                <Image 
+                  src="/icons/download.svg" 
+                  alt="Download" 
+                  width={28} 
+                  height={28}
+                  className="w-7 h-7 brightness-0 invert"
+                />
               }
               title="Instant Download"
               description="Export your finished avatar as high-quality PNG with just one click"
