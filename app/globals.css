@@ -207,4 +207,32 @@ body {
     max-width: 100%;
     aspect-ratio: 1 / 1;
   }
+
+  /* Floating animation for loading ghost */
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  .animate-float {
+    animation: float 2s ease-in-out infinite;
+  }
+
+  /* Blink animation for ghost eyes */
+  @keyframes blink {
+    0%, 90%, 100% {
+      opacity: 1;
+    }
+    95% {
+      opacity: 0;
+    }
+  }
+
+  .animate-blink {
+    animation: blink 4s ease-in-out infinite;
+  }
 }
