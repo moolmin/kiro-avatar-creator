@@ -12,7 +12,7 @@ import Image from 'next/image';
 import { useAvatarStore } from '@/lib/avatarStore';
 import { getCategoryOptions } from '@/lib/componentRegistry';
 import { ComponentRegistryEntry } from '@/lib/types';
-import ExportButton from '@/components/ExportButton';
+import SaveButton from '@/components/SaveButton';
 import RandomButton from '@/components/controls/RandomButton';
 
 interface Tab {
@@ -197,7 +197,7 @@ export default function TabbedCustomizationPanel({ className = '', svgRef }: Cus
               <div className="md:hidden">
                 <RandomButton />
               </div>
-              <ExportButton svgRef={svgRef} />
+              <SaveButton svgRef={svgRef} />
             </div>
           )}
         </div>
