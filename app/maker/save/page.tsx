@@ -18,6 +18,16 @@ import savedAvatarStore, {
   restoreSavedAvatar,
 } from "@/lib/savedAvatarStore";
 import { exportAvatarAsPNG } from "@/lib/exportUtils";
+import { useAvatarStore } from "@/lib/avatarStore";
+import type { AvatarConfiguration } from "@/lib/types";
+
+const RESET_AVATAR_CONFIG: AvatarConfiguration = {
+  eyes: "eyes-01",
+  hat: null,
+  cape: null,
+  accessory: null,
+  background: "background-00",
+};
 
 type AvatarData = SavedAvatar | null;
 
@@ -29,6 +39,7 @@ export default function SavePage() {
   );
   const [isLoading, setIsLoading] = useState(() => avatarData === null);
   const [isDownloading, setIsDownloading] = useState(false);
+  const updateAvatarConfig = useAvatarStore((state) => state.updateConfig);
 
   useEffect(() => {
     const data = restoreSavedAvatar();
@@ -59,6 +70,7 @@ export default function SavePage() {
     if (typeof window !== "undefined") {
       window.sessionStorage.removeItem(SAVED_AVATAR_STORAGE_KEY);
     }
+    updateAvatarConfig(RESET_AVATAR_CONFIG);
     router.push("/maker");
   };
 

@@ -31,7 +31,7 @@ interface AvatarStore {
  * Default avatar configuration
  * Uses the first available option from each category
  */
-const defaultConfig: AvatarConfiguration = {
+export const DEFAULT_AVATAR_CONFIG: AvatarConfiguration = {
   eyes: 'eyes-01',
   hat: null,
   cape: null,
@@ -89,11 +89,11 @@ function validateConfiguration(
   config: Partial<AvatarConfiguration>
 ): AvatarConfiguration {
   return {
-    eyes: validateConfigValue('eyes', config.eyes ?? defaultConfig.eyes, false) as string,
-    hat: validateConfigValue('hats', config.hat ?? defaultConfig.hat, true),
-    cape: validateConfigValue('capes', config.cape ?? defaultConfig.cape, true),
-    accessory: validateConfigValue('accessories', config.accessory ?? defaultConfig.accessory, true),
-    background: validateConfigValue('backgrounds', config.background ?? defaultConfig.background, false) as string,
+    eyes: validateConfigValue('eyes', config.eyes ?? DEFAULT_AVATAR_CONFIG.eyes, false) as string,
+    hat: validateConfigValue('hats', config.hat ?? DEFAULT_AVATAR_CONFIG.hat, true),
+    cape: validateConfigValue('capes', config.cape ?? DEFAULT_AVATAR_CONFIG.cape, true),
+    accessory: validateConfigValue('accessories', config.accessory ?? DEFAULT_AVATAR_CONFIG.accessory, true),
+    background: validateConfigValue('backgrounds', config.background ?? DEFAULT_AVATAR_CONFIG.background, false) as string,
   };
 }
 
@@ -129,7 +129,7 @@ function getRandomOption(category: string, allowNull: boolean = false): string |
  */
 export const useAvatarStore = create<AvatarStore>((set) => ({
   // Initial state
-  config: defaultConfig,
+  config: { ...DEFAULT_AVATAR_CONFIG },
   
   /**
    * Update avatar configuration with partial updates
@@ -174,4 +174,5 @@ export const useAvatarStore = create<AvatarStore>((set) => ({
     
     return { config: validatedConfig };
   }),
+
 }));

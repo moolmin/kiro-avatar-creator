@@ -5,14 +5,37 @@
  * and call-to-action to navigate to the avatar maker.
  */
 
-'use client';
+"use client";
 
-import Link from 'next/link';
-import Image from 'next/image';
-import EmblaCarousel from '@/components/EmblaCarousel';
-import FeatureCard from '@/components/FeatureCard';
+import Link from "next/link";
+import Image from "next/image";
+import EmblaCarousel from "@/components/EmblaCarousel";
+import FeatureCard from "@/components/FeatureCard";
+import { useAvatarStore } from "@/lib/avatarStore";
+import savedAvatarStore, {
+  SAVED_AVATAR_STORAGE_KEY,
+} from "@/lib/savedAvatarStore";
+import type { AvatarConfiguration } from "@/lib/types";
+
+const RESET_AVATAR_CONFIG: AvatarConfiguration = {
+  eyes: "eyes-01",
+  hat: null,
+  cape: null,
+  accessory: null,
+  background: "background-00",
+};
 
 export default function Home() {
+  const updateAvatarConfig = useAvatarStore((state) => state.updateConfig);
+
+  const handleStartCreatingClick = () => {
+    updateAvatarConfig(RESET_AVATAR_CONFIG);
+    savedAvatarStore.clearSavedAvatar();
+    if (typeof window !== "undefined") {
+      window.sessionStorage.removeItem(SAVED_AVATAR_STORAGE_KEY);
+    }
+  };
+
   return (
     <main className="min-h-screen bg-halloween-gradient">
       {/* Header */}
@@ -77,8 +100,9 @@ export default function Home() {
             </p>
 
             {/* CTA Button */}
-            <Link 
-              href="/maker" 
+            <Link
+              href="/maker"
+              onClick={handleStartCreatingClick}
               className="inline-flex items-center px-8 py-4 bg-primary-purple text-white text-lg font-semibold rounded-2xl shadow-lg hover:bg-purple-700 transition-all duration-300 hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-purple-300"
             >
               Start Creating
@@ -107,8 +131,9 @@ export default function Home() {
               </p>
 
               {/* CTA Button */}
-              <Link 
-                href="/maker" 
+              <Link
+                href="/maker"
+                onClick={handleStartCreatingClick}
                 className="inline-flex items-center px-8 py-4 bg-primary-purple text-white text-lg font-semibold rounded-2xl shadow-lg hover:bg-purple-700 transition-all duration-300 hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-purple-300"
               >
                 Start Creating
