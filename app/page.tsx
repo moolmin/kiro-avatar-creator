@@ -141,7 +141,7 @@ export default function Home() {
                 />
               }
               title="Fully Customizable"
-              description="Mix and match from dozens of unique ghost parts to create your perfect spooky avatar"
+              description="Customize your kiro costume and mix and match elements to create your own spooky avatar."
             />
 
             <FeatureCard

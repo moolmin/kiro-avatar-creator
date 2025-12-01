@@ -58,7 +58,7 @@ export default function CustomizationPanel() {
             Customize Your Ghost
           </h2>
           <p className="text-sm text-gray-600">
-            Mix and match to create your perfect spooky avatar
+            Mix and match to create your own spooky Kiro
           </p>
         </div>
 
