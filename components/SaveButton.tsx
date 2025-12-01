@@ -9,60 +9,18 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAvatarStore } from '@/lib/avatarStore';
-import savedAvatarStore from '@/lib/savedAvatarStore';
-import html2canvas from 'html2canvas';
+import savedAvatarStore, { SAVED_AVATAR_STORAGE_KEY, SavedAvatar } from '@/lib/savedAvatarStore';
 
 export interface SaveButtonProps {
   svgRef: React.RefObject<SVGSVGElement>;
   className?: string;
 }
 
-/**
- * Convert image URL to base64 data URL
- */
-async function imageToBase64(url: string): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.onload = () => {
-      const canvas = document.createElement('canvas');
-      canvas.width = img.width;
-      canvas.height = img.height;
-      const ctx = canvas.getContext('2d');
-      if (!ctx) {
-        reject(new Error('Failed to get canvas context'));
-        return;
-      }
-      ctx.drawImage(img, 0, 0);
-      resolve(canvas.toDataURL('image/png'));
-    };
-    img.onerror = () => reject(new Error(`Failed to load image: ${url}`));
-    img.src = url;
-  });
-}
-
-/**
- * Convert all external image references in SVG to base64 data URLs
- */
-async function embedImagesInSvg(svgElement: SVGSVGElement): Promise<SVGSVGElement> {
-  const cloned = svgElement.cloneNode(true) as SVGSVGElement;
-  const images = cloned.querySelectorAll('image');
-  
-  const promises = Array.from(images).map(async (img) => {
-    const href = img.getAttribute('href') || img.getAttribute('xlink:href');
-    if (href && !href.startsWith('data:')) {
-      try {
-        const base64 = await imageToBase64(href);
-        img.setAttribute('href', base64);
-        img.removeAttribute('xlink:href');
-      } catch (error) {
-        console.warn(`Failed to embed image: ${href}`, error);
-      }
-    }
-  });
-  
-  await Promise.all(promises);
-  return cloned;
+function cloneConfig<T>(config: T): T {
+  if (typeof structuredClone === 'function') {
+    return structuredClone(config);
+  }
+  return JSON.parse(JSON.stringify(config));
 }
 
 export default function SaveButton({ svgRef, className = '' }: SaveButtonProps) {
@@ -71,67 +29,39 @@ export default function SaveButton({ svgRef, className = '' }: SaveButtonProps) 
   const [isSaving, setIsSaving] = useState(false);
 
   const handleSave = async () => {
-    if (!svgRef.current || isSaving) {
-      console.error('Avatar canvas not ready or already saving');
+    if (isSaving) {
       return;
     }
 
     setIsSaving(true);
 
     try {
-      // Wait a bit to ensure all SVG content is fully rendered
+      console.log('Starting save process...');
+      
+      // Wait a moment for any pending renders
       await new Promise(resolve => setTimeout(resolve, 100));
       
-      // Create a temporary container for rendering
-      const container = document.createElement('div');
-      container.style.width = '1024px';
-      container.style.height = '1024px';
-      container.style.position = 'fixed';
-      container.style.left = '-9999px';
-      container.style.top = '0';
-      container.style.background = 'transparent';
+      const configSnapshot = cloneConfig(config);
+      const savedPayload: SavedAvatar = {
+        image: null,
+        config: configSnapshot,
+        timestamp: Date.now(),
+      };
       
-      // Clone the SVG and embed all external images as base64
-      const clonedSvg = await embedImagesInSvg(svgRef.current);
-      clonedSvg.setAttribute('width', '1024');
-      clonedSvg.setAttribute('height', '1024');
-      clonedSvg.style.width = '1024px';
-      clonedSvg.style.height = '1024px';
+      savedAvatarStore.setSavedAvatar(savedPayload);
       
-      container.appendChild(clonedSvg);
-      document.body.appendChild(container);
+      if (typeof window !== 'undefined') {
+        try {
+          window.sessionStorage.setItem(SAVED_AVATAR_STORAGE_KEY, JSON.stringify(savedPayload));
+        } catch (storageError) {
+          console.warn('Failed to persist avatar to sessionStorage', storageError);
+        }
+      }
       
-      // Wait for render
-      await new Promise(resolve => setTimeout(resolve, 200));
-      
-      // Convert to canvas using html2canvas
-      const canvas = await html2canvas(container, {
-        backgroundColor: null,
-        scale: 2,
-        width: 1024,
-        height: 1024,
-        logging: false,
-        useCORS: true,
-        allowTaint: true,
-      });
-      
-      // Clean up container
-      document.body.removeChild(container);
-      
-      // Get data URL
-      const dataUrl = canvas.toDataURL('image/png', 1.0);
-      
-      // Store in global store instead of sessionStorage
-      savedAvatarStore.setSavedAvatar({
-        image: dataUrl,
-        config: config,
-        timestamp: Date.now()
-      });
-      
-      // Navigate to save page
       router.push('/maker/save');
     } catch (error) {
       console.error('Failed to save avatar:', error);
+      alert('Failed to save avatar. Please try again.');
     } finally {
       setIsSaving(false);
     }

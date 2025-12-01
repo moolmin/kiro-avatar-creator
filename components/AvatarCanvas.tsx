@@ -24,12 +24,14 @@ import { useAvatarStore } from '@/lib/avatarStore';
 import { getComponent } from '@/lib/componentRegistry';
 import { SVGComponentErrorBoundary } from './SVGComponentErrorBoundary';
 import { getSVGTransform, transformToString } from '@/lib/componentTransforms';
+import { AvatarConfiguration } from '@/lib/types';
 
 /**
  * AvatarCanvas component props
  */
 export interface AvatarCanvasProps {
   className?: string;
+  configOverride?: AvatarConfiguration;
 }
 
 /**
@@ -46,9 +48,10 @@ export interface AvatarCanvasProps {
  * <AvatarCanvas ref={canvasRef} />
  */
 export const AvatarCanvas = forwardRef<SVGSVGElement, AvatarCanvasProps>(
-  ({ className }, ref) => {
+  ({ className, configOverride }, ref) => {
     // Get current configuration from store
-    const config = useAvatarStore((state) => state.config);
+    const storeConfig = useAvatarStore((state) => state.config);
+    const config = configOverride ?? storeConfig;
     const [ghostBodyContent, setGhostBodyContent] = useState<string>('');
 
     // Load the default ghost body SVG
