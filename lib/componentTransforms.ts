@@ -68,9 +68,9 @@ export const svgTransforms: SVGTransformConfig = {
       translateY: 800,
     },
     'eyes-08': {
-      scale: 0.3,
-      translateX: 1540,
-      translateY: 800,
+      scale: 0.34,
+      translateX: 1340,
+      translateY: 600,
     },
     'eyes-09': {
       scale: 0.3,
@@ -177,8 +177,8 @@ export const svgTransforms: SVGTransformConfig = {
     },
     'capes-06': {
       scale: 0.93,
-      translateX: 56,
-      translateY: 214,
+      translateX: 52,
+      translateY: 210,
     },
     'capes-07': {
       scale: 0.91,
@@ -200,9 +200,9 @@ export const svgTransforms: SVGTransformConfig = {
       translateY: 1200,
     },
     'accessories-02': {
-      scale: 0.4,
-      translateX: 1040,
-      translateY: 1200,
+      scale: 0.44,
+      translateX: 930,
+      translateY: 1060,
     },
     'accessories-03': {
        scale: 0.84,

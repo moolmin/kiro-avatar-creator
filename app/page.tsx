@@ -180,7 +180,7 @@ export default function Home() {
                 />
               }
               title="Multiple Elements"
-              description="Choose from eyes, hats, capes, accessories, and backgrounds for endless combinations"
+              description="Choose from eyes, hats, capes, accessories, and backgrounds for a variety of combinations."
             />
 
             <FeatureCard
