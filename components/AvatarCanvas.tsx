@@ -122,6 +122,7 @@ export const AvatarCanvas = forwardRef<SVGSVGElement, AvatarCanvasProps>(
               height="1152"
               preserveAspectRatio="xMidYMid slice"
               transform={transformToString(getSVGTransform('backgrounds', config.background))}
+              loading={config.background === 'background-00' ? 'eager' : 'lazy'}
             />
           </SVGComponentErrorBoundary>
         )}
@@ -145,6 +146,7 @@ export const AvatarCanvas = forwardRef<SVGSVGElement, AvatarCanvasProps>(
               height="1024"
               preserveAspectRatio="xMidYMid meet"
               transform={transformToString(getSVGTransform('eyes', config.eyes))}
+              loading={config.eyes === 'eyes-01' ? 'eager' : 'lazy'}
             />
           </SVGComponentErrorBoundary>
         )}
@@ -160,6 +162,7 @@ export const AvatarCanvas = forwardRef<SVGSVGElement, AvatarCanvasProps>(
               height="1024"
               preserveAspectRatio="xMidYMid meet"
               transform={transformToString(getSVGTransform('hats', config.hat))}
+              loading="lazy"
             />
           </SVGComponentErrorBoundary>
         )}
@@ -175,6 +178,7 @@ export const AvatarCanvas = forwardRef<SVGSVGElement, AvatarCanvasProps>(
               height="1024"
               preserveAspectRatio="xMidYMid meet"
               transform={transformToString(getSVGTransform('accessories', config.accessory))}
+              loading="lazy"
             />
           </SVGComponentErrorBoundary>
         )}
@@ -190,6 +194,7 @@ export const AvatarCanvas = forwardRef<SVGSVGElement, AvatarCanvasProps>(
               height="1024"
               preserveAspectRatio="xMidYMid meet"
               transform={transformToString(getSVGTransform('capes', config.cape))}
+              loading="lazy"
             />
           </SVGComponentErrorBoundary>
         )}
@@ -205,6 +210,7 @@ export const AvatarCanvas = forwardRef<SVGSVGElement, AvatarCanvasProps>(
               height="1024"
               preserveAspectRatio="xMidYMid meet"
               transform={transformToString(getSVGTransform('accessories', config.accessory))}
+              loading="lazy"
             />
           </SVGComponentErrorBoundary>
         )}

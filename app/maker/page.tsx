@@ -23,7 +23,7 @@ export default function AvatarMaker() {
   const canvasRef = useRef<SVGSVGElement>(null!);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Preload all assets including PNG images
+  // Preload all assets before showing the maker
   useEffect(() => {
     const preloadImage = (src: string) => {
       return new Promise((resolve, reject) => {
@@ -36,11 +36,10 @@ export default function AvatarMaker() {
 
     const preloadAssets = async () => {
       try {
-        // Preload the default ghost body SVG
-        await fetch('/ghost-parts/kiro-body.svg');
-
-        // Preload all PNG images
-        const imagePromises = [
+        // Preload all assets including PNG images
+        await Promise.all([
+          // Ghost body SVG
+          fetch('/ghost-parts/kiro-body.svg'),
           // Eyes
           ...['eyes-01', 'eyes-02', 'eyes-03', 'eyes-04', 'eyes-05', 'eyes-06', 'eyes-07'].map(id => 
             preloadImage(`/ghost-parts/eyes/${id}.png`)
@@ -61,9 +60,7 @@ export default function AvatarMaker() {
           ...['background-00', 'background-01', 'background-02', 'background-03', 'background-04', 'background-05'].map(id => 
             preloadImage(`/ghost-parts/backgrounds/${id}.png`)
           ),
-        ];
-
-        await Promise.all(imagePromises);
+        ]);
       } catch (error) {
         console.warn('Some assets failed to preload:', error);
       } finally {
