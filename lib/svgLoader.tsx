@@ -143,6 +143,8 @@ function calculateNormalizationTransform(viewBox: string | null, svgPath?: strin
 /**
  * Create a React component that renders an SVG or PNG from the public folder
  * 
+ * Optimized with React.memo to prevent unnecessary re-renders when props haven't changed.
+ * 
  * @param category - Category name (e.g., 'eyes', 'mouths')
  * @param filename - SVG or PNG filename (e.g., 'round-eyes.svg', 'eyes-01.png')
  * @returns React component that renders the content
@@ -154,7 +156,7 @@ export function createSvgComponent(
   const filePath = `/ghost-parts/${category}/${filename}`;
   const isPng = filename.endsWith('.png');
   
-  const SvgComponent = ({ className, style }: GhostPartProps) => {
+  const SvgComponent = React.memo(({ className, style }: GhostPartProps) => {
     const [svgData, setSvgData] = useState<SvgContentData>({ content: '', viewBox: null });
     const [isLoading, setIsLoading] = useState(!isPng);
     
@@ -215,7 +217,13 @@ export function createSvgComponent(
         dangerouslySetInnerHTML={{ __html: svgData.content }}
       />
     );
-  };
+  }, (prevProps, nextProps) => {
+    // Custom comparison - only re-render if className or style changes
+    return (
+      prevProps.className === nextProps.className &&
+      JSON.stringify(prevProps.style) === JSON.stringify(nextProps.style)
+    );
+  });
 
   SvgComponent.displayName = `Svg(${category}/${filename})`;
   return SvgComponent;

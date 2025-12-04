@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment, memo } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { ComponentRegistryEntry } from '@/lib/types';
 
@@ -10,7 +10,13 @@ interface SelectControlProps {
   nullable?: boolean;
 }
 
-export default function SelectControl({
+/**
+ * SelectControl Component
+ * 
+ * Optimized dropdown control with React.memo to prevent unnecessary re-renders.
+ * Only re-renders when value, options, or label changes.
+ */
+const SelectControl = memo(function SelectControl({
   label,
   value,
   options,
@@ -145,4 +151,16 @@ export default function SelectControl({
       </Listbox>
     </div>
   );
-}
+}, (prevProps, nextProps) => {
+  // Custom comparison for optimal performance
+  // Only re-render if value, label, or nullable changes
+  // Options array is assumed stable (from registry)
+  return (
+    prevProps.value === nextProps.value &&
+    prevProps.label === nextProps.label &&
+    prevProps.nullable === nextProps.nullable &&
+    prevProps.options.length === nextProps.options.length
+  );
+});
+
+export default SelectControl;

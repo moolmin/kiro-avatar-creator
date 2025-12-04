@@ -43,11 +43,14 @@ export interface AvatarCanvasProps {
  * 
  * The ref is forwarded to the SVG element to enable export functionality.
  * 
+ * Optimized with React.memo to prevent unnecessary re-renders when
+ * configuration hasn't changed.
+ * 
  * @example
  * const canvasRef = useRef<SVGSVGElement>(null);
  * <AvatarCanvas ref={canvasRef} />
  */
-export const AvatarCanvas = forwardRef<SVGSVGElement, AvatarCanvasProps>(
+const AvatarCanvasComponent = forwardRef<SVGSVGElement, AvatarCanvasProps>(
   ({ className, configOverride }, ref) => {
     // Get current configuration from store
     const storeConfig = useAvatarStore((state) => state.config);
@@ -122,7 +125,6 @@ export const AvatarCanvas = forwardRef<SVGSVGElement, AvatarCanvasProps>(
               height="1152"
               preserveAspectRatio="xMidYMid slice"
               transform={transformToString(getSVGTransform('backgrounds', config.background))}
-              loading={config.background === 'background-00' ? 'eager' : 'lazy'}
             />
           </SVGComponentErrorBoundary>
         )}
@@ -146,7 +148,6 @@ export const AvatarCanvas = forwardRef<SVGSVGElement, AvatarCanvasProps>(
               height="1024"
               preserveAspectRatio="xMidYMid meet"
               transform={transformToString(getSVGTransform('eyes', config.eyes))}
-              loading={config.eyes === 'eyes-01' ? 'eager' : 'lazy'}
             />
           </SVGComponentErrorBoundary>
         )}
@@ -162,7 +163,6 @@ export const AvatarCanvas = forwardRef<SVGSVGElement, AvatarCanvasProps>(
               height="1024"
               preserveAspectRatio="xMidYMid meet"
               transform={transformToString(getSVGTransform('hats', config.hat))}
-              loading="lazy"
             />
           </SVGComponentErrorBoundary>
         )}
@@ -178,7 +178,6 @@ export const AvatarCanvas = forwardRef<SVGSVGElement, AvatarCanvasProps>(
               height="1024"
               preserveAspectRatio="xMidYMid meet"
               transform={transformToString(getSVGTransform('accessories', config.accessory))}
-              loading="lazy"
             />
           </SVGComponentErrorBoundary>
         )}
@@ -194,7 +193,6 @@ export const AvatarCanvas = forwardRef<SVGSVGElement, AvatarCanvasProps>(
               height="1024"
               preserveAspectRatio="xMidYMid meet"
               transform={transformToString(getSVGTransform('capes', config.cape))}
-              loading="lazy"
             />
           </SVGComponentErrorBoundary>
         )}
@@ -210,7 +208,6 @@ export const AvatarCanvas = forwardRef<SVGSVGElement, AvatarCanvasProps>(
               height="1024"
               preserveAspectRatio="xMidYMid meet"
               transform={transformToString(getSVGTransform('accessories', config.accessory))}
-              loading="lazy"
             />
           </SVGComponentErrorBoundary>
         )}
@@ -219,6 +216,22 @@ export const AvatarCanvas = forwardRef<SVGSVGElement, AvatarCanvasProps>(
   }
 );
 
-AvatarCanvas.displayName = 'AvatarCanvas';
+AvatarCanvasComponent.displayName = 'AvatarCanvas';
+
+/**
+ * Memoized AvatarCanvas to prevent unnecessary re-renders
+ * Only re-renders when configOverride or className changes
+ */
+export const AvatarCanvas = React.memo(AvatarCanvasComponent, (prevProps, nextProps) => {
+  // Custom comparison function for optimal performance
+  return (
+    prevProps.className === nextProps.className &&
+    prevProps.configOverride?.eyes === nextProps.configOverride?.eyes &&
+    prevProps.configOverride?.hat === nextProps.configOverride?.hat &&
+    prevProps.configOverride?.cape === nextProps.configOverride?.cape &&
+    prevProps.configOverride?.accessory === nextProps.configOverride?.accessory &&
+    prevProps.configOverride?.background === nextProps.configOverride?.background
+  );
+});
 
 export default AvatarCanvas;

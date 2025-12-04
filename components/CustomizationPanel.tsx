@@ -12,19 +12,41 @@
 import { useAvatarStore } from '@/lib/avatarStore';
 import { getCategoryOptions } from '@/lib/componentRegistry';
 import SelectControl from './controls/SelectControl';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 
 export default function CustomizationPanel() {
   const config = useAvatarStore((state) => state.config);
   const updateConfig = useAvatarStore((state) => state.updateConfig);
   const [announcement, setAnnouncement] = useState('');
 
-  // Get options from component registry for each category
-  const eyesOptions = getCategoryOptions('eyes');
-  const hatsOptions = getCategoryOptions('hats');
-  const capesOptions = getCategoryOptions('capes');
-  const accessoriesOptions = getCategoryOptions('accessories');
-  const backgroundsOptions = getCategoryOptions('backgrounds');
+  // Memoize options from component registry to prevent unnecessary recalculations
+  // These are stable and only need to be computed once
+  const eyesOptions = useMemo(() => getCategoryOptions('eyes'), []);
+  const hatsOptions = useMemo(() => getCategoryOptions('hats'), []);
+  const capesOptions = useMemo(() => getCategoryOptions('capes'), []);
+  const accessoriesOptions = useMemo(() => getCategoryOptions('accessories'), []);
+  const backgroundsOptions = useMemo(() => getCategoryOptions('backgrounds'), []);
+
+  // Memoize change handlers to prevent unnecessary re-renders of SelectControl
+  const handleEyesChange = useCallback((value: string | null) => {
+    updateConfig({ eyes: value as string });
+  }, [updateConfig]);
+
+  const handleHatChange = useCallback((value: string | null) => {
+    updateConfig({ hat: value });
+  }, [updateConfig]);
+
+  const handleCapeChange = useCallback((value: string | null) => {
+    updateConfig({ cape: value as string });
+  }, [updateConfig]);
+
+  const handleAccessoryChange = useCallback((value: string | null) => {
+    updateConfig({ accessory: value });
+  }, [updateConfig]);
+
+  const handleBackgroundChange = useCallback((value: string | null) => {
+    updateConfig({ background: value as string });
+  }, [updateConfig]);
 
   // Announce changes to screen readers
   useEffect(() => {
@@ -69,7 +91,7 @@ export default function CustomizationPanel() {
               label="👁️ Eyes"
               value={config.eyes}
               options={eyesOptions}
-              onChange={(value) => updateConfig({ eyes: value as string })}
+              onChange={handleEyesChange}
               nullable={false}
             />
           </div>
@@ -80,7 +102,7 @@ export default function CustomizationPanel() {
               label="🎩 Hat"
               value={config.hat}
               options={hatsOptions}
-              onChange={(value) => updateConfig({ hat: value })}
+              onChange={handleHatChange}
               nullable={true}
             />
           </div>
@@ -91,7 +113,7 @@ export default function CustomizationPanel() {
               label="🦇 Cape"
               value={config.cape}
               options={capesOptions}
-              onChange={(value) => updateConfig({ cape: value as string })}
+              onChange={handleCapeChange}
               nullable={false}
             />
           </div>
@@ -102,7 +124,7 @@ export default function CustomizationPanel() {
               label="✨ Accessory"
               value={config.accessory}
               options={accessoriesOptions}
-              onChange={(value) => updateConfig({ accessory: value })}
+              onChange={handleAccessoryChange}
               nullable={true}
             />
           </div>
@@ -113,7 +135,7 @@ export default function CustomizationPanel() {
               label="🌙 Background"
               value={config.background}
               options={backgroundsOptions}
-              onChange={(value) => updateConfig({ background: value as string })}
+              onChange={handleBackgroundChange}
               nullable={false}
             />
           </div>
